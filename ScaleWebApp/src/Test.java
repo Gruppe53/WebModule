@@ -2,7 +2,7 @@ import java.sql.*;
 
 import databaseAccess.*;
 
-public class Main {
+public class Test {
 	private static DBAccess db;
 	private static ResultSet test;
 	
