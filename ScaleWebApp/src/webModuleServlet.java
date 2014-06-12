@@ -15,7 +15,7 @@ public class webModuleServlet extends HttpServlet {
 		if(userAgent != null)
 			clientBrowser = userAgent;
 		
-		req.setAttribute("client.browser",clientBrowser );
-		req.getRequestDispatcher("/index.jsp").forward(req,resp);
+		req.setAttribute("client.browser", clientBrowser );
+		req.getRequestDispatcher("/index.jsp").forward(req, resp);
 	}
 }
