@@ -1,0 +1,122 @@
+body {
+	color: #666;
+	font: 11px Verdana, Geneva, sans-serif normal;
+}
+
+h1 {
+	color: #333;
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+h2 {
+	color: #333;
+	font-size: 120%;
+	margin: 10px 0px 10px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+/** IDs **/
+#main {
+	width: 801px;
+	min-height: 500px;
+	margin: 100px auto;
+}
+
+#menu {
+	width: 150px;
+	height: inherit;
+	float: left;
+}
+
+#content {
+	width: 601px;
+	height: inherit;
+	float: left;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 50px;
+}
+
+#loginBox {
+	width: 220px;
+	height: 120px;
+}
+
+#userList {
+	margin: 25px 0px 0px 0px;
+}
+
+#userList table tr + tr:hover,
+#prescriptionList table tr + tr:hover,
+#materialList table tr + tr:hover,
+#materialBatchList table tr + tr:hover,
+#productBatchList table tr + tr:hover {
+	background: #06F;
+	color: #FFF;
+	cursor: pointer;
+}
+
+#userList table tr:first-child td,
+#materialList table tr:first-child td,
+#prescriptionList table tr:first-child td,
+#materialBatchList table tr:first-child td,
+#productBatchList table tr:first-child td {
+	border-bottom: 1px solid #0066ff;
+}
+
+#userList table tr + tr td,
+#materialList table tr + tr td,
+#prescriptionList table tr + tr td,
+#materialBatchList table tr + tr td,
+#productBatchList table tr + tr td {
+	border-right: 1px solid #fff;
+}
+
+#userList table,
+#materialList table,
+#prescriptionList table,
+#materialBatchList table,
+#productBatchList table {
+	width: 100%;
+	border-spacing: 0px;
+    border-collapse: separate;
+}
+
+/** CLASSs **/
+.menuBtn {
+	width: 120px;
+	height: 28px;
+	color: #666;
+	cursor: pointer;
+	float: left;
+	font-size: 130%;
+	font-weight: bold;
+	margin: 0px 0px 5px 0px;
+	padding: 11px 15px 0px 15px;
+}
+.menuBtn:hover {
+	color: #FFF;
+	background: #06F;
+}
+
+.loginBoxInput {
+	width: 146px;
+	border: 1px solid #06F;
+	border-radius: 2px;
+}
+
+.actionBtn {
+	height: 28px;
+	background: #06F;
+	color: #FFF;
+	cursor: pointer;
+	float: left;
+	font-size: 120%;
+	font-weight: bold;
+	text-align: center;
+	margin: 0px 5px 5px 0px;
+	padding: 11px 0px 0px 0px;
+}
+.actionBtn:hover {
+	background: #09F;
+}
