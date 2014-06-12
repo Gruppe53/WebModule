@@ -17,7 +17,5 @@ public class webModuleServlet extends HttpServlet {
 		
 		req.setAttribute("client.browser",clientBrowser );
 		req.getRequestDispatcher("/index.jsp").forward(req,resp);
-		
-		// Meh
 	}
 }
