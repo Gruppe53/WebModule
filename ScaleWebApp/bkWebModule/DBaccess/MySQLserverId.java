@@ -3,12 +3,12 @@ package DBaccess;
 public abstract class MySQLserverId {
 
 	public static final String
-	server = "One.com",
-	database = "phelweg",
-	username = "phelweg_dk",
-	password = "SXhktjpr";
+	server = "s156.eatj.com",
+	database = "dbadmin50.jsp",
+	username = "gruppe55",
+	password = "55gruppe";
 	
 	public static final int
-	port = 3306;
+	port = 3307;
 	
 }

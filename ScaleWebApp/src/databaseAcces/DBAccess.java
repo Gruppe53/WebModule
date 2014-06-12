@@ -1,4 +1,4 @@
-package databaseAcces;
+package databaseAccess;
 
 import java.sql.*;
 
@@ -8,38 +8,54 @@ public class DBAccess {
 	private PreparedStatement preparedStatement	= null;
 	private ResultSet resultSet					= null;
 	
-	private String DBHost						= "72.13.93.206";
-	private int DBPort							= 3307;
-	private String DBDatabase					= "gruppe55";
-	private String DBUserName					= "gruppe55";
-	private String DBPassword					= "55gruppe";
+	private String DBHost;
+	private int DBPort;
+	private String DBDatabase;
+	private String DBUserName;
+	private String DBPassword;
+	
+	public DBAccess(String DBHost, int DBPort, String DBDatabase, String DBUserName, String DBPassword) {
+		this.DBHost = DBHost;
+		this.DBPort = DBPort;
+		this.DBDatabase = DBDatabase;
+		this.DBUserName = DBUserName;
+		this.DBPassword = DBPassword;
+	}
 	
 	public ResultSet doSqlQuery(String query) throws Exception, SQLException {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
-			// Template: jdbc:mysql://host/database?user=yourUserName&password=yourPassword
-			// Port?... dno
-			connect = DriverManager.getConnection(
-					"jdbc:mysql://"
-					+ DBHost + "/"
-					+ DBDatabase
-					+ "?user="+ DBUserName
-					+ "&password=" + DBPassword
-			);
+			connect = DriverManager.getConnection("jdbc:mysql://" + DBHost + ":" + DBPort + "/" + DBDatabase, DBUserName, DBPassword);
 			
 			statement = connect.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM user");
+			resultSet = statement.executeQuery(query);
 
 			return resultSet;
 		}
 		catch (Exception e) {
 			throw e;
 		}
-		finally {
-			resultSet.close();
-			statement.close();
-			connect.close();
+	}
+	
+	public int doSqlUpdate(String query) throws Exception, SQLException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			
+			connect = DriverManager.getConnection("jdbc:mysql://" + DBHost + ":" + DBPort + "/" + DBDatabase, DBUserName, DBPassword);
+			
+			statement = connect.createStatement();
+
+			return statement.executeUpdate(query);
 		}
+		catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public void closeSql() throws SQLException {
+		this.resultSet.close();
+		this.statement.close();
+		this.connect.close();
 	}
 }
