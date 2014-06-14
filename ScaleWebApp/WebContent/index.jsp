@@ -1,10 +1,4 @@
-<%@	page
-	language="java"
-	import="java.sql.*, java.util.*, java.text.*"
-	errorPage=""
-	pageEncoding="UTF-8"
-	session="false"
-%>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*" errorPage="" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +17,7 @@
 			
 			$("#" + active).css("background", "#06F");					// Activate menu link corrosponding to current front page
 			$("#" + active).css("color", "#FFF");						// Same...
-			$("#container").load(escape(active) + ".htm");				// Load content corrosponding to the active page
+//			$("#container").load(escape(active) + ".htm");				// Load content corrosponding to the active page
 			
 			$(".menuBtn").click(function() {							// When we click on menu links
 				active = this.getAttribute("id");						// Set new active page
@@ -33,15 +27,17 @@
 				$("#" + active).css("background", "#06F");				// Restyle menu (active)
 				$("#" + active).css("color", "#FFF");					// Restyle menu (active)
 				
-				$('#container').fadeOut('fast', function() {			// Fade current content out
-					$.get(												// Create AJAX-object
-						escape(active) + ".htm", 						// Load data from "[active].htm", [active] = active page
-						function(data) {
-							$("#container").html(data).fadeIn('fast');	// Insert data into the div with #container-id AND fade it in
-						}, 
-						"html"											// Data type
-					);
-				});
+				window.location = active + ".jsp";
+				
+//				$('#container').fadeOut('fast', function() {			// Fade current content out
+//					$.get(												// Create AJAX-object
+//						escape(active) + ".htm", 						// Load data from "[active].htm", [active] = active page
+//						function(data) {
+//							$("#container").html(data).fadeIn('fast');	// Insert data into the div with #container-id AND fade it in
+//						}, 
+//						"html"											// Data type
+//					);
+//				});
 			});
 			
 			$(".menuBtn").hover(										// CSS-fix (issues with previous css-styling through jQuery)
@@ -63,11 +59,11 @@
     	<div id="menu">
         	<h1>navigation</h1>
         	<div id="front" class="menuBtn">front</div>
-            <div id="brugere" class="menuBtn">brugere</div>
-            <div id="råvarer" class="menuBtn">råvarer</div>
-            <div id="recepter" class="menuBtn">recepter</div>
-            <div id="råvarebatches" class="menuBtn">råvarebatches</div>
-            <div id="produktbatches" class="menuBtn">produktbatches</div>
+            <div id="users" class="menuBtn">brugere</div>
+            <div id="materials" class="menuBtn">råvarer</div>
+            <div id="prescriptions" class="menuBtn">recepter</div>
+            <div id="materialbatches" class="menuBtn">råvarebatches</div>
+            <div id="productbatches" class="menuBtn">produktbatches</div>
         </div>
         <div id="content">
             <div id="container"></div>
