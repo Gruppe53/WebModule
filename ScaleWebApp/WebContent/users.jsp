@@ -1,4 +1,4 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <h1>brugere</h1>
 <div class="actionBtn" style="width: 120px">opret bruger</div><div class="actionBtn" style="width: 145px;">inaktive brugere</div>
 <div style="clear: both;"></div>
@@ -12,90 +12,48 @@
             <td><strong>niveau</strong></td>
             <td></td>
         </tr>
-        <tr bgcolor="#dfecff">
-        	<td>bsd3451</td>
-            <td>Boris Stymanowzky Dimitriscz</td>
-            <td>120354-3245</td>
-            <td>Administrator</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>acd5653</td>
-            <td>Anders Carl Dennisen</td>
-            <td>020365-4215</td>
-            <td>Farmaceut</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>gfa4821</td>
-            <td>Gustav Frederik Andersen</td>
-            <td>050771-5163</td>
-            <td>VÃ¦rkfÃ¸rer</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>oef5143</td>
-            <td>Ole Eriks Frederiksen</td>
-            <td>240341-5443</td>
-            <td>OperatÃ¸r</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>bsd3451</td>
-            <td>Boris Stymanowzky Dimitriscz</td>
-            <td>120354-3245</td>
-            <td>Administrator</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>acd5653</td>
-            <td>Anders Carl Dennisen</td>
-            <td>020365-4215</td>
-            <td>Farmaceut</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>gfa4821</td>
-            <td>Gustav Frederik Andersen</td>
-            <td>050771-5163</td>
-            <td>VÃ¦rkfÃ¸rer</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>oef5143</td>
-            <td>Ole Eriks Frederiksen</td>
-            <td>240341-5443</td>
-            <td>OperatÃ¸r</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>bsd3451</td>
-            <td>Boris Stymanowzky Dimitriscz</td>
-            <td>120354-3245</td>
-            <td>Administrator</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>acd5653</td>
-            <td>Anders Carl Dennisen</td>
-            <td>020365-4215</td>
-            <td>Farmaceut</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>gfa4821</td>
-            <td>Gustav Frederik Andersen</td>
-            <td>050771-5163</td>
-            <td>VÃ¦rkfÃ¸rer</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>oef5143</td>
-            <td>Ole Eriks Frederiksen</td>
-            <td>240341-5443</td>
-            <td>OperatÃ¸r</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
+       	<%
+       		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM user");
+		
+			try {
+				int i = 0;
+				
+				while(rs.next()) {
+					if(i % 2 == 0) {
+						%>
+						<tr bgcolor="#dfecff">
+				        	<td><%= rs.getInt("u_id") %></td>
+				            <td><%= rs.getString("u_name") %></td>
+				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
+				            <td><%= rs.getInt("u_level") %></td>
+				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				        </tr>
+						<%
+					}
+					else {
+						%>
+						<tr>
+				        	<td><%= rs.getInt("u_id") %></td>
+				            <td><%= rs.getString("u_name") %></td>
+				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
+				            <td><%= rs.getInt("u_level") %></td>
+				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				        </tr>
+				        <%
+					}
+					
+					i++;
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				rs.close();
+				con.closeSql();
+			}
+        %>
     </table>
 </div>
 <div id="userCreate">
@@ -152,8 +110,8 @@
                     	<option selected="selected" disabled="disabled">Brugerniveau</option>
                         <option value="admin">Administrator</option>
                         <option value="farmaceut">Farmaceut</option>
-                        <option value="vÃ¦rkfÃ¸rer">VÃ¦rkfÃ¸rer</option>
-                        <option value="operatÃ¸r">OperatÃ¸r</option>
+                        <option value="værkører">Værkfører</option>
+                        <option value="operatør">Operatør</option>
                     </select>
                 </td>
             </tr>
@@ -216,8 +174,8 @@
                     <select id="ulevel" name="ulevel">
                         <option value="admin" selected="selected">Administrator</option>
                         <option value="farmaceut">Farmaceut</option>
-                        <option value="vÃ¦rkfÃ¸rer">VÃ¦rkfÃ¸rer</option>
-                        <option value="operatÃ¸r">OperatÃ¸r</option>
+                        <option value="værkfører">Værkfører</option>
+                        <option value="operatør">Operatør</option>
                     </select>
                 </td>
             </tr>

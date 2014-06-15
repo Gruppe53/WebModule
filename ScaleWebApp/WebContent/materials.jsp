@@ -1,3 +1,4 @@
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
 	$("form").on("change", "select[name*='component']", function(e) {
 		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
@@ -38,150 +39,46 @@
             <td><strong>leverandør</strong></td>
             <td style="width: 6%"></td>
         </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5434sa</td>
-            <td>Salt</td>
-            <td>GC Rieber Salt A/S</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>2154pa</td>
-            <td>Paracetamol</td>
-            <td>GlaxoSmithKline Consumer Healthcare</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>9885ac</td>
-            <td>Acetylsalicylsyre</td>
-            <td>Takeda Pharma</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>6503co</td>
-            <td>Codein</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5432om</td>
-            <td>Omeprazol</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>3464tr</td>
-            <td>Trospiumchlorid </td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5439na</td>
-            <td>Natrium</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>1238ch</td>
-            <td>Chlorid</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5434sa</td>
-            <td>Salt</td>
-            <td>GC Rieber Salt A/S</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>2154pa</td>
-            <td>Paracetamol</td>
-            <td>GlaxoSmithKline Consumer Healthcare</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>9885ac</td>
-            <td>Acetylsalicylsyre</td>
-            <td>Takeda Pharma</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>6503co</td>
-            <td>Codein</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5432om</td>
-            <td>Omeprazol</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>3464tr</td>
-            <td>Trospiumchlorid </td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5439na</td>
-            <td>Natrium</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>1238ch</td>
-            <td>Chlorid</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5434sa</td>
-            <td>Salt</td>
-            <td>GC Rieber Salt A/S</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>2154pa</td>
-            <td>Paracetamol</td>
-            <td>GlaxoSmithKline Consumer Healthcare</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>9885ac</td>
-            <td>Acetylsalicylsyre</td>
-            <td>Takeda Pharma</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>6503co</td>
-            <td>Codein</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5432om</td>
-            <td>Omeprazol</td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>3464tr</td>
-            <td>Trospiumchlorid </td>
-            <td>Alternova</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>5439na</td>
-            <td>Natrium</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>1238ch</td>
-            <td>Chlorid</td>
-            <td>Bents Biokemi</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
+        <%
+       		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
+		
+			try {
+				int i = 0;
+				
+				while(rs.next()) {
+					if(i % 2 == 0) {
+						%>
+						<tr bgcolor="#dfecff">
+				        	<td><%= rs.getInt("m_id") %></td>
+				            <td><%= rs.getString("m_name") %></td>
+				            <td><%= rs.getString("supplier") %></td>
+				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				        </tr>
+						<%
+					}
+					else {
+						%>
+						<tr>
+				        	<td><%= rs.getInt("m_id") %></td>
+				            <td><%= rs.getString("m_name") %></td>
+				            <td><%= rs.getString("supplier") %></td>
+				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				        </tr>
+				        <%
+					}
+					
+					i++;
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				rs.close();
+				con.closeSql();
+			}
+        %>
     </table>
 </div>
 <div id="materialCreate">
