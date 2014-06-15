@@ -51,7 +51,7 @@ h2 {
 #materialList table tr + tr:hover,
 #materialBatchList table tr + tr:hover,
 #productBatchList table tr + tr:hover {
-	background: #06F;
+	background-color: #06F;
 	color: #FFF;
 	cursor: pointer;
 }
@@ -119,4 +119,13 @@ h2 {
 }
 .actionBtn:hover {
 	background: #09F;
+}
+
+.tableHover {
+	background-color: #dfecff;
+}
+.tableHover:hover {
+	background-color: #06F;
+	color: #FFF;
+	cursor: pointer;
 }

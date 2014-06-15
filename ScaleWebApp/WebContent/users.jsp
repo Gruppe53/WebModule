@@ -2,7 +2,12 @@
 <script>
 	$(".actionBtn").click(function(e) {
 		var showDiv = this.getAttribute("title");
-		$("#"+showDiv).css("display", "block");
+		var display = $("#" + showDiv).css("display");
+		
+		if(display == "none")
+			$("#" + showDiv).css("display", "block");
+		else if(display == "block")
+			$("#" + showDiv).css("display", "none");
 		
 		if(showDiv == "userEdit") {
 			// TODO
@@ -10,21 +15,26 @@
 	});
 	
 	$("#userCreateForm").validate({
-		rules: {
+		// Form validation rules
+		rules: {		
 			u_id: {
 				required: true,
-				minlength: 10
+				minlength: 10,
+				number: true,
+				regex: /^([1-9]\d{9}){1}$/
 			},
 			u_name: {
 				required: true,
 				minlength: 4,
-				regex: /asdasd/
+				maxlength: 100,
+				regex: /^([a-zA-Z]+[^0-9]*)$/
 			},
 			u_cprf: {
 				required: true,
 				minlength: 6,
 				maxlength: 6,
-				number: true
+				number: true,
+				regex: /([0-2][1-9]|3[0-1])(0[1-9]|1[0-2])([0-9]{2})/
 			},
 			u_cprl: {
 				required: true,
@@ -43,11 +53,51 @@
 			u_level: {
 				required: true
 			}
+		},
+		
+		// Error messages upon validation
+		messages: {		
+			u_id: {
+				required: "Indtast et bruger-ID.",
+				number: "Bruger-ID kan kun indeholde tal.",
+				regex: "ID kan ikke starte med 0.",
+				minlength: "Bruger-ID skal være 10 karaktere langt."
+			},
+			u_name: {
+				required: "Indtast brugerens navn.",
+				minlength: "Undgå initialer og des lige, skriv deres fulde navn.",
+				maxlength: "Navne på mere end 100 tegn, kan ikke gemmes i databasen.",
+				regex: "Navne indeholder ikke tal."
+			},
+			u_cprf: {
+				required: "Indtast fødselsdato for brugeren.",
+				number: "Skal være i formatet ddmmåå - brug kun tal.",
+				minlength: "Skal være i formatet ddmmåå - brug f.eks. 05 i stedet for 5.",
+				maxlength: "Skal være i formatet ddmmåå - brug f.eks. 05 i stedet for 5.",
+				regex: "Indtast en gyldig dato."
+			},
+			u_cprl: {
+				required: "Indtast de sidste fire cifre i brugerens CPR-nummer.",
+				minlength: "Der skal indtastes fire cifre.",
+				maxlength: "Der skal indtastes fire cifre.",
+				number: "Brug kun tal."
+			},
+			password: {
+				required: "Indtast et password på minimum 8 bogstaver.",
+				regex: "Password skal indeholde mindst 1 lille bogstav, 1 stort bogstav og 1 tal."
+			},
+			passwordrepeat: {
+				required: "Indtast password igen.",
+				equalTo: "Matcher ikke det forrige password."
+			},
+			u_level: {
+				required: "Vælg et brugerniveau."
+			}
 		}
 	});
 </script>
 <h1>brugere</h1>
-<div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div title="userEdit" class="actionBtn" style="width: 145px;">inaktive brugere</div>
+<div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div class="actionBtn" style="width: 145px;">inaktive brugere</div>
 <div style="clear: both;"></div>
 <div id="userList">
 	<h2>brugere</h2>
@@ -69,12 +119,12 @@
 				while(rs.next()) {
 					if(i % 2 == 0) {
 						%>
-						<tr bgcolor="#dfecff">
+						<tr class="tableHover">
 				        	<td><%= rs.getInt("u_id") %></td>
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= rs.getInt("u_level") %></td>
-				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 				        </tr>
 						<%
 					}
@@ -85,7 +135,7 @@
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= rs.getInt("u_level") %></td>
-				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 				        </tr>
 				        <%
 					}
@@ -112,8 +162,9 @@
                 	<label for="u_id">Bruger id</label>
                 </td>
                 <td>
-                	<input id="u_id" name="u_id" type="text" maxlength="8" placeholder="xxx123" />
+                	<input id="u_id" name="u_id" type="text" maxlength="10" placeholder="xxx123" />
 				</td>
+				<td class="u_id_error"></td>
             </tr>
             <tr>
             	<td>
@@ -122,15 +173,17 @@
                 <td>
           			<input id="u_name" name="u_name" type="text" maxlength="100" placeholder="Anders Andersen..." />
 				</td>
+				<td></td>
             </tr>
             <tr>
             	<td>
                 	<label for="u_cprf">CPR</label>
                 </td>
                 <td>
-            		<input id="u_cprf" name="ucpr" type="text" maxlength="6" placeholder="ddmmyy" style="width: 53px; margin-left: 2px;" /> - 
-           			<input id="u_cprl" name="ucpr" type="text" maxlength="4" placeholder="cccc" style="width: 30px;" />
+            		<input id="u_cprf" name="u_cprf" type="text" maxlength="6" placeholder="ddmmyy" style="width: 53px; margin-left: 2px;" /> - 
+           			<input id="u_cprl" name="u_cprl" type="text" maxlength="4" placeholder="cccc" style="width: 30px;" />
 				</td>
+				<td class="u_cprf_error u_cprl_error"></td>
             </tr>
             <tr>
             	<td>
@@ -139,6 +192,7 @@
                 <td>
 					<input id="password" name="password" type="password" maxlength="100" placeholder="Password" />
 				</td>
+				<td class="password_error"></td>
             </tr>
             <tr>
             	<td>
@@ -147,6 +201,7 @@
                 <td>
 					<input id="passwordrepeat" name="passwordrepeat" type="password" maxlength="100" placeholder="Gentag password" />
 				</td>
+				<td class="passwordrepeat_error"></td>
             </tr>
             <tr>
             	<td>
@@ -161,9 +216,11 @@
                         <option value="4">Operatør</option>
                     </select>
                 </td>
+                <td class="u_level_error"></td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input disabled="disabled" type="submit" name="createUserSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createUserSub" value="Opret" /></td>
+            	<td></td>
             </tr>
         </table>
 	</form>
