@@ -8,9 +8,10 @@
 		@import "style/global.css";
 	</style>
     <link rel="shortcut icon" href="image/icon.png">
+    <script src="script/jquery-2.1.1.min.js"></script>
     <script src="script/jquery.mockjax.js"></script>
     <script src="script/jquery.form.js"></script>
-    <script src="script/jquery.validate.js"></script>
+    <script src="script/jquery.validate.min.js"></script>
     <script>
 		$(document).ready(function(e) {
 			$.ajaxSetup({cache: false});								// Prevent caching - only necessary when rapid editing of pages
@@ -51,6 +52,15 @@
 						$(this).css("color", "#666");					// New font color when hovering out
 					}
 			});
+			
+			$.validator.addMethod(										// Add new method to the validator plugin
+			        "regex",											// Name of the new method (used with "rules")
+			        function(value, element, regexp) {					// Parameters...
+			            var re = new RegExp(regexp);					// New object of type RegExp, which takes "regexp" from method parameters as input
+			            return this.optional(element) || re.test(value);// Return an erroneous element or successful validation
+			        },													
+			        "Forkert syntakse."									// Error message
+			);
         });
 	</script>
 </head>

@@ -9,15 +9,6 @@
 		}
 	});
 	
-	$.validator.addMethod(
-	        "regex",
-	        function(value, element, regexp) {
-	            var re = new RegExp(regexp);
-	            return this.optional(element) || re.test(value);
-	        },
-	        "Please check your input."
-	);
-	
 	$("#userCreateForm").validate({
 		rules: {
 			u_id: {
@@ -26,7 +17,8 @@
 			},
 			u_name: {
 				required: true,
-				minlength: 4
+				minlength: 4,
+				regex: /asdasd/
 			},
 			u_cprf: {
 				required: true,
@@ -42,7 +34,7 @@
 			},
 			password: {
 				required: true,
-				regex: "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+				regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/	// Must contain 1 digit, 1 small letter and 1 capital letter
 			},
 			passwordrepeat: {
 				required: true,
