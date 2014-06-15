@@ -1,4 +1,4 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +64,28 @@
             <div id="productbatches" class="menuBtn">produktbatches</div>
         </div>
         <div id="content">
+        	<%
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				Connection con = DriverManager.getConnection("jdbc:mysql://72.13.93.206:3307/gruppe55", "gruppe55", "55gruppe");
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+			
+				try {
+					while(rs.next()) {
+						%>
+							u_name: <%= rs.getString("u_name") %>, u_level: <%= rs.getInt("u_level") %>
+						<%
+					}
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				finally {
+					rs.close();
+					stmt.close();
+					con.close();
+				}
+	        %>
             <div id="container"></div>
         </div>
     </div>

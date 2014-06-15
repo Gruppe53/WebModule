@@ -1,3 +1,4 @@
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <h1>brugere</h1>
 <div class="actionBtn" style="width: 120px">opret bruger</div><div class="actionBtn" style="width: 145px;">inaktive brugere</div>
 <div style="clear: both;"></div>
@@ -29,14 +30,14 @@
         	<td>gfa4821</td>
             <td>Gustav Frederik Andersen</td>
             <td>050771-5163</td>
-            <td>Værkfører</td>
+            <td>VÃ¦rkfÃ¸rer</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
         <tr>
         	<td>oef5143</td>
             <td>Ole Eriks Frederiksen</td>
             <td>240341-5443</td>
-            <td>Operatør</td>
+            <td>OperatÃ¸r</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
         <tr bgcolor="#dfecff">
@@ -57,14 +58,14 @@
         	<td>gfa4821</td>
             <td>Gustav Frederik Andersen</td>
             <td>050771-5163</td>
-            <td>Værkfører</td>
+            <td>VÃ¦rkfÃ¸rer</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
         <tr>
         	<td>oef5143</td>
             <td>Ole Eriks Frederiksen</td>
             <td>240341-5443</td>
-            <td>Operatør</td>
+            <td>OperatÃ¸r</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
         <tr bgcolor="#dfecff">
@@ -85,14 +86,14 @@
         	<td>gfa4821</td>
             <td>Gustav Frederik Andersen</td>
             <td>050771-5163</td>
-            <td>Værkfører</td>
+            <td>VÃ¦rkfÃ¸rer</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
         <tr>
         	<td>oef5143</td>
             <td>Ole Eriks Frederiksen</td>
             <td>240341-5443</td>
-            <td>Operatør</td>
+            <td>OperatÃ¸r</td>
             <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         </tr>
     </table>
@@ -122,7 +123,7 @@
                 	<label for="ucprf">CPR</label>
                 </td>
                 <td>
-            		<input id="ucprf" name="ucpr" type="text" maxlength="6" placeholder="ddmmåå" style="width: 53px; margin-left: 2px;" /> - 
+            		<input id="ucprf" name="ucpr" type="text" maxlength="6" placeholder="ddmmÃ¥Ã¥" style="width: 53px; margin-left: 2px;" /> - 
            			<input id="ucprl" name="ucpr" type="text" maxlength="4" placeholder="cccc" style="width: 30px;" />
 				</td>
             </tr>
@@ -151,8 +152,8 @@
                     	<option selected="selected" disabled="disabled">Brugerniveau</option>
                         <option value="admin">Administrator</option>
                         <option value="farmaceut">Farmaceut</option>
-                        <option value="værkfører">Værkfører</option>
-                        <option value="operatør">Operatør</option>
+                        <option value="vÃ¦rkfÃ¸rer">VÃ¦rkfÃ¸rer</option>
+                        <option value="operatÃ¸r">OperatÃ¸r</option>
                     </select>
                 </td>
             </tr>
@@ -215,8 +216,8 @@
                     <select id="ulevel" name="ulevel">
                         <option value="admin" selected="selected">Administrator</option>
                         <option value="farmaceut">Farmaceut</option>
-                        <option value="værkfører">Værkfører</option>
-                        <option value="operatør">Operatør</option>
+                        <option value="vÃ¦rkfÃ¸rer">VÃ¦rkfÃ¸rer</option>
+                        <option value="operatÃ¸r">OperatÃ¸r</option>
                     </select>
                 </td>
             </tr>
