@@ -1,6 +1,61 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
+<script>
+	$(".actionBtn").click(function(e) {
+		var showDiv = this.getAttribute("title");
+		$("#"+showDiv).css("display", "block");
+		
+		if(showDiv == "userEdit") {
+			// TODO
+		}
+	});
+	
+	$.validator.addMethod(
+	        "regex",
+	        function(value, element, regexp) {
+	            var re = new RegExp(regexp);
+	            return this.optional(element) || re.test(value);
+	        },
+	        "Please check your input."
+	);
+	
+	$("#userCreateForm").validate({
+		rules: {
+			u_id: {
+				required: true,
+				minlength: 10
+			},
+			u_name: {
+				required: true,
+				minlength: 4
+			},
+			u_cprf: {
+				required: true,
+				minlength: 6,
+				maxlength: 6,
+				number: true
+			},
+			u_cprl: {
+				required: true,
+				minlength: 4,
+				maxlength: 4,
+				number: true
+			},
+			password: {
+				required: true,
+				regex: "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+			},
+			passwordrepeat: {
+				required: true,
+				equalTo: "#password"
+			},
+			u_level: {
+				required: true
+			}
+		}
+	});
+</script>
 <h1>brugere</h1>
-<div class="actionBtn" style="width: 120px">opret bruger</div><div class="actionBtn" style="width: 145px;">inaktive brugere</div>
+<div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div title="userEdit" class="actionBtn" style="width: 145px;">inaktive brugere</div>
 <div style="clear: both;"></div>
 <div id="userList">
 	<h2>brugere</h2>
@@ -56,33 +111,33 @@
         %>
     </table>
 </div>
-<div id="userCreate">
+<div id="userCreate" style="display: none;">
 	<h2>opret bruger</h2>
-	<form action="" method="post">
+	<form action="" id="userCreateForm" method="post">
         <table>
         	<tr>
             	<td>
-                	<label for="uid">Bruger id</label>
+                	<label for="u_id">Bruger id</label>
                 </td>
                 <td>
-                	<input id="uid" name="uid" type="text" maxlength="8" placeholder="xxx123" />
+                	<input id="u_id" name="u_id" type="text" maxlength="8" placeholder="xxx123" />
 				</td>
             </tr>
             <tr>
             	<td>
-                	<label for="uname">Navn</label>
+                	<label for="u_name">Navn</label>
                 </td>
                 <td>
-          			<input id="uname" name="uname" type="text" maxlength="100" placeholder="Anders Andersen..." />
+          			<input id="u_name" name="u_name" type="text" maxlength="100" placeholder="Anders Andersen..." />
 				</td>
             </tr>
             <tr>
             	<td>
-                	<label for="ucprf">CPR</label>
+                	<label for="u_cprf">CPR</label>
                 </td>
                 <td>
-            		<input id="ucprf" name="ucpr" type="text" maxlength="6" placeholder="ddmmÃ¥Ã¥" style="width: 53px; margin-left: 2px;" /> - 
-           			<input id="ucprl" name="ucpr" type="text" maxlength="4" placeholder="cccc" style="width: 30px;" />
+            		<input id="u_cprf" name="ucpr" type="text" maxlength="6" placeholder="ddmmyy" style="width: 53px; margin-left: 2px;" /> - 
+           			<input id="u_cprl" name="ucpr" type="text" maxlength="4" placeholder="cccc" style="width: 30px;" />
 				</td>
             </tr>
             <tr>
@@ -103,51 +158,51 @@
             </tr>
             <tr>
             	<td>
-                	<label for="ulevel">Brugerniveau</label>
+                	<label for="u_level">Brugerniveau</label>
                 </td>
                 <td>
-                    <select id="ulevel" name="ulevel">
+                    <select id="u_level" name="u_level">
                     	<option selected="selected" disabled="disabled">Brugerniveau</option>
-                        <option value="admin">Administrator</option>
-                        <option value="farmaceut">Farmaceut</option>
-                        <option value="værkører">Værkfører</option>
-                        <option value="operatør">Operatør</option>
+                        <option value="1">Administrator</option>
+                        <option value="2">Farmaceut</option>
+                        <option value="3">Værkfører</option>
+                        <option value="4">Operatør</option>
                     </select>
                 </td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createUserSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input disabled="disabled" type="submit" name="createUserSub" value="Opret" /></td>
             </tr>
         </table>
 	</form>
 </div>
-<div id="userEdit">
+<div id="userEdit" style="display: none;">
 	<h2>rediger bruger</h2>
 	<form action="" method="post">
         <table>
         	<tr>
             	<td>
-                	<label for="uid">Bruger id</label>
+                	<label for="u_id">Bruger id</label>
                 </td>
                 <td>
-                	<input id="uid" name="uid" type="text" maxlength="8" value="bsd3451" disabled="disabled" />
+                	<input id="u_id" name="u_id" type="text" maxlength="8" value="bsd3451" disabled="disabled" />
 				</td>
             </tr>
             <tr>
             	<td>
-                	<label for="uname">Navn</label>
+                	<label for="u_name">Navn</label>
                 </td>
                 <td>
-          			<input id="uname" name="uname" type="text" maxlength="100" value="Boris Stymanowzky Dimitriscz" />
+          			<input id="u_name" name="u_name" type="text" maxlength="100" value="Boris Stymanowzky Dimitriscz" />
 				</td>
             </tr>
             <tr>
             	<td>
-                	<label for="ucprf">CPR</label>
+                	<label for="u_cprf">CPR</label>
                 </td>
                 <td>
-            		<input id="ucprf" name="ucpr" type="text" maxlength="6" style="width: 53px; margin-left: 2px;" value="120354" /> - 
-           			<input id="ucprl" name="ucpr" type="text" maxlength="4" style="width: 30px;" value="3245" />
+            		<input id="u_cprf" name="ucpr" type="text" maxlength="6" style="width: 53px; margin-left: 2px;" value="120354" /> - 
+           			<input id="u_cprl" name="ucpr" type="text" maxlength="4" style="width: 30px;" value="3245" />
 				</td>
             </tr>
             <tr>
@@ -168,10 +223,10 @@
             </tr>
             <tr>
             	<td>
-                	<label for="ulevel">Brugerniveau</label>
+                	<label for="u_level">Brugerniveau</label>
                 </td>
                 <td>
-                    <select id="ulevel" name="ulevel">
+                    <select id="u_level" name="u_level">
                         <option value="admin" selected="selected">Administrator</option>
                         <option value="farmaceut">Farmaceut</option>
                         <option value="værkfører">Værkfører</option>
@@ -180,7 +235,7 @@
                 </td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="submit" value="Fortryd" /><input type="submit" value="editUserSub" value="Rediger" /></td>
+            	<td align="right" colspan="2"><input type="submit" value="Fortryd" /><input type="submit" name="editUserSub" value="Rediger" /></td>
             </tr>
         </table>
 	</form>

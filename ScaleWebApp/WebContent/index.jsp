@@ -8,7 +8,9 @@
 		@import "style/global.css";
 	</style>
     <link rel="shortcut icon" href="image/icon.png">
-    <script src="script/jquery-2.1.1.min.js"></script>
+    <script src="script/jquery.mockjax.js"></script>
+    <script src="script/jquery.form.js"></script>
+    <script src="script/jquery.validate.js"></script>
     <script>
 		$(document).ready(function(e) {
 			$.ajaxSetup({cache: false});								// Prevent caching - only necessary when rapid editing of pages
