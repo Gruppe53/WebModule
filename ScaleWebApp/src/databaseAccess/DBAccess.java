@@ -5,7 +5,6 @@ import java.sql.*;
 public class DBAccess {
 	private Connection connect					= null;
 	private Statement statement					= null;
-	private PreparedStatement preparedStatement	= null;
 	private ResultSet resultSet					= null;
 	
 	private String DBHost;
