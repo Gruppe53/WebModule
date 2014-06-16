@@ -61,6 +61,7 @@
         						kr = kr + ", " +  komponents.getString("m_navn");}
         					%>
         					<td><%= kr %></td>
+        					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         				</tr>
         				<% 
         			}
@@ -78,9 +79,11 @@
         						kr = kr + ", " +  komponents.getString("m_navn");}
         					%>
         					<td><%= kr %></td>
+        					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         				</tr>
         				<%
         			}
+        			i++;
         		}			
         	}
         	catch (SQLException e) {

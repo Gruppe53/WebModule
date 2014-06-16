@@ -38,6 +38,7 @@
 			<td><strong>id</strong></td>
 			<td><strong>navn</strong></td>
 			<td><strong>leverandør</strong></td>
+			<td style="width: 6%;"></td>
 		</tr>
 		<%
 			DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
@@ -51,8 +52,9 @@
 						%>
 						<tr class="tableHover">
 							<td><%= rs.getInt("m_id") %>		</td>
-							<td><%= rs.getString("m_navn") %>	</td>
+							<td><%= rs.getString("m_name") %>	</td>
 							<td><%= rs.getString("supplier") %>	</td>
+							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
 						<%
 					}
@@ -60,19 +62,17 @@
 						%>
 						<tr>
 							<td><%= rs.getInt("m_id") %>		</td>
-							<td><%= rs.getString("m_navn") %>	</td>
+							<td><%= rs.getString("m_name") %>	</td>
 							<td><%= rs.getString("supplier") %>	</td>
+							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
 						<%
 					}
+					i++;
 				}
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
-			}
-			finally {
-				rs.close();
-				con.closeSql();
 			}
 			
 			
@@ -96,8 +96,7 @@
             <td style="width: 6%"></td>
         </tr>
         <%
-       		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
-			ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
+       		rs = con.doSqlQuery("SELECT * FROM materials");
 		
 			try {
 				int i = 0;
