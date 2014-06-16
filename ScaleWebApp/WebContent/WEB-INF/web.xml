@@ -37,6 +37,26 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
+    <url-pattern>/LoginServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreatePrescriptionServlet</display-name>
+    <servlet-name>CreatePrescriptionServlet</servlet-name>
+    <servlet-class>org.scale.servlets.CreatePrescriptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreatePrescriptionServlet</servlet-name>
+    <url-pattern>/CreatePrescriptionServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateMaterialServlet</display-name>
+    <servlet-name>CreateMaterialServlet</servlet-name>
+    <servlet-class>org.scale.servlets.CreateMaterialServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMaterialServlet</servlet-name>
+    <url-pattern>/CreateMaterialServlet/*</url-pattern>
   </servlet-mapping>
 </web-app>
