@@ -11,12 +11,12 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>webModuleServlet</display-name>
-    <servlet-name>webModuleServlet</servlet-name>
-    <servlet-class>webModuleServlet</servlet-class>
+    <display-name>CreateUsersServlet</display-name>
+    <servlet-name>CreateUsersServlet</servlet-name>
+    <servlet-class>CreateUsersServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>webModuleServlet</servlet-name>
+    <servlet-name>CreateUsersServlet</servlet-name>
     <url-pattern>/web/*</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -35,49 +35,7 @@
 				maxlength: 6,
 				number: true,
 				regex: /^(0[1-9]|[1-2][0-9]|3[0-1])[.\-/]?(0[1-9]|1[0-2])[.\-/]?([0-9]{2})$/
-				/*	Date which accepts ddmmyy, dd-mm/yy, dd.mm-yy (and any combination of ".", "-" and "/")
-					Wrongly accepts eg. 30-02-yy (hint: there's never more than 29 days in february)
-					A work-around would be to include matches (negated) for all months, which has 28 or only 30 days in it
-					How to include leap years.... meh.... no idea.
-					
-					If anyone feels for it, the rules are as following:
-					
-					if (year is not divisible by 4)
-						common year
-					else if (year is not divisible by 100)
-						leap year
-					else if (year is not divisible by 400)
-						common year
-					else
-						leap year
-				
-					Oh and by the way: the greatest problem lies in the fact, that the year is entered as yy and not yyyy.
-					Have fun finding an acceptable solution.
-				
-					If you don't feel like doing it with regex, you could just create your own validating method.
-					This is done by doing:
-				
-					$.validation.addMethod("<name>",
-						function(value, element, <parameters>) {
-							code here;
-							return <error> || <success>;
-						},
-						"<error message>"
-					);
-					- <name> is the name which we use to call the validating method (eg. required, minlength, number etc.)
-					- <paramters> are types which will be followed by the call of the method (whatever you put after you call
-					  the method - eg. "required: true", here it is "true" which is being followed as a boolean.)
-					  I don't know if it takes more than 1 parameter. Eg. if we created the method foo and then called the
-					  method with "foo: {true, 'someStringText'}" that it then would accept function-parameters as 
-					  function(value, element, <nameOfBooleanType>, <nameOfStringType>)
-					- and then allow us to use <nameOfBooleanType> and <nameOfStringType> as vars inside the function.
-					- <error> is the element which should be returned if something went wrong
-					- <success> take a guess...
-					- <error message> is the message which automatically should be appended NEXT to the validated object
-				
-					There might be some built-in method - I don't know. If they're available, you will probably find them
-					in the "additional-methods.js"-file. Maybe they're only available through the localization files.
-					You'll have to download the localization files yourself (they're a part of the validation plugin - google it).*/
+				// READ COMMENT IN DROPBOX FOLDER: regexDateComment.txt
 			},
 			u_cprl: {
 				required: true,
@@ -87,7 +45,9 @@
 			},
 			password: {
 				required: true,
-				regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/	// Must contain 1 digit, 1 small letter and 1 capital letter
+				minlength: 8,
+				regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+				// Must contain 1 digit, 1 small letter and 1 capital letter
 			},
 			passwordrepeat: {
 				required: true,
@@ -127,7 +87,8 @@
 			},
 			password: {
 				required: "Indtast et password på minimum 8 bogstaver.",
-				regex: "Password skal indeholde mindst 1 lille bogstav, 1 stort bogstav og 1 tal."
+				minlength: "Password skal minimum være 8 karaktere langt.",
+				regex: "Mindst 1 lille og stort bogstav, samt 1 tal."
 			},
 			passwordrepeat: {
 				required: "Indtast password igen.",
