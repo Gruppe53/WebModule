@@ -117,7 +117,7 @@
             <td><strong>navn</strong></td>
             <td><strong>cpr</strong></td>
             <td><strong>niveau</strong></td>
-            <td></td>
+            <td style="width: 6%;"></td>
         </tr>
        	<%
        		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
