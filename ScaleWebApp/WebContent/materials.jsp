@@ -28,6 +28,62 @@
 	
 </script>
 <h1>råvarer</h1>
+<% //------------------------------------------------------- Bækhøj input start -------------------------------- %>
+<div title="materialCreate" class="actionBtn" style ="width: 120px">opret råvare</div>
+<div style="clear: both;"></div>
+<div id="materialList">
+	<h2>råvarer</h2>
+	<table>
+		<tr>
+			<td><strong>id</strong></td>
+			<td><strong>navn</strong></td>
+			<td><strong>leverandør</strong></td>
+		</tr>
+		<%
+			DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM material");
+	
+			try {
+				int i = 0;
+				
+				while(rs.next()) {
+					if(i % 2 == 0) {
+						%>
+						<tr class="tableHover">
+							<td><%= rs.getInt("m_id") %>		</td>
+							<td><%= rs.getString("m_navn") %>	</td>
+							<td><%= rs.getString("supplier") %>	</td>
+						</tr>
+						<%
+					}
+					else {
+						%>
+						<tr>
+							<td><%= rs.getInt("m_id") %>		</td>
+							<td><%= rs.getString("m_navn") %>	</td>
+							<td><%= rs.getString("supplier") %>	</td>
+						</tr>
+						<%
+					}
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				rs.close();
+				con.closeSql();
+			}
+			
+			
+		%>
+		
+	
+	
+	
+	</table>
+</div>
+<% //------------------------------------------------------- Bækhøj input slut -------------------------------- %>
 <div class="actionBtn" style="width: 120px">opret råvare</div>
 <div style="clear: both;"></div>
 <div id="materialList">

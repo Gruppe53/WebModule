@@ -1,3 +1,4 @@
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
 	$("form").on("change", "select[name*='component']", function(e) {
 		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
@@ -27,6 +28,76 @@
 	
 </script>
 <h1>recepter</h1>
+<% //------------------------------------------------------- Bækhøj input start -------------------------------- %>
+<div title="prescriptionList" class="actionBtn" style="width: 120px">opret recept</div>
+<div style="clear: both;"></div>
+<div id="prescriptionList">
+	<h2>recepter</h2>
+	<table>
+    	<tr>
+        	<td><strong>id</strong></td>
+            <td><strong>navn</strong></td>
+            <td><strong>komponenter</strong></td>
+            <td style="width: 6%"></td>
+        </tr>
+        <%
+        	DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+        	ResultSet rs = con.doSqlQuery("SELECT * FROM prescription");
+        	
+        	try {
+        		int i = 0;
+        		
+        		while(rs.next()) {
+        			if (i % 2 == 0) {
+        				%>
+        				<tr class="tableHover">
+        					<td><%= rs.getInt("pre_id")  %>		</td>
+        					<td><%= rs.getString("pre_name") %>	</td>
+        					
+        					<% ResultSet komponents = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id='" + rs.getInt("pre_id") + "'");
+        					String kr = "";
+        					
+        					while(komponents.next()){
+        						kr = kr + ", " +  komponents.getString("m_navn");}
+        					%>
+        					<td><%= kr %></td>
+        				</tr>
+        				<% 
+        			}
+        			else {
+        				%>
+        				
+        				<tr>
+        					<td><%= rs.getInt("pre_id")  %>		</td>
+        					<td><%= rs.getString("pre_name") %>	</td>
+        					
+        					<% ResultSet komponents = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id='" + rs.getInt("pre_id") + "'");
+        					String kr = "";
+        					
+        					while(komponents.next()){
+        						kr = kr + ", " +  komponents.getString("m_navn");}
+        					%>
+        					<td><%= kr %></td>
+        				</tr>
+        				<%
+        			}
+        		}			
+        	}
+        	catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+        	finally {
+        		rs.close();
+        		con.closeSql();
+        	}       
+        %>
+	</table>
+</div>
+
+<% //------------------------------------------------------- Bækhøj input slut -------------------------------- %>
+
+
+
 <div class="actionBtn" style="width: 120px">opret recept</div>
 <div style="clear: both;"></div>
 <div id="prescriptionList">
