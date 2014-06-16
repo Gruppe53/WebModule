@@ -18,4 +18,8 @@ public class CreateUsersServlet extends HttpServlet {
 		req.setAttribute("client.browser", clientBrowser );
 		req.getRequestDispatcher("/index.jsp").forward(req, resp);
 	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
 }
