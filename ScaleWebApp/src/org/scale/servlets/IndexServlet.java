@@ -1,4 +1,4 @@
-package servletSources;
+package org.scale.servlets;
 
 
 import java.io.IOException;

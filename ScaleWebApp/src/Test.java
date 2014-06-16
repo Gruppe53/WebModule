@@ -1,6 +1,6 @@
 import java.sql.*;
 
-import databaseAccess.*;
+import org.scale.database.*;
 
 public class Test {
 	private static DBAccess db;

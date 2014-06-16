@@ -1,4 +1,4 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,org.scale.database.*" errorPage="" pageEncoding="UTF-8" %>
 <h1>rÃ¥varebatches</h1>
 <% //------------------------------------------------------- Bækhøj input start -------------------------------- %>
 <div title="materialbatchCreate" class="actionBtn" style="width: 120px">opret materialbatch</div>
