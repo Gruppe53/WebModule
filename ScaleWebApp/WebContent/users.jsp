@@ -1,23 +1,51 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*, databaseAccess.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
+	var showDiv;
+	
 	$(".actionBtn").click(function(e) {
-		var showDiv = this.getAttribute("title");
+		showDiv = this.getAttribute("title");
 		var display = $("#" + showDiv).css("display");
 		
 		if(display == "none")
-			$("#" + showDiv).css("display", "block");
+			$("#" + showDiv).fadeIn("fast");
 		else if(display == "block")
-			$("#" + showDiv).css("display", "none");
+			$("#" + showDiv).fadeOut("fast");
 		
 		if(showDiv == "userEdit") {
 			// TODO
 		}
 	});
 	
-	$("#userCreateForm").submit(function(e) {
-		$.post("CreateUsersServlet", {u_id:u_id, u_name:u_name, u_cpr:u_cprf + u_cprl, u_level:u_level}, function(data) {
-			alert("Data posted/loaded: " + data);
+	$("input[name='createUserSub']").click(function(e) {
+		var id = $("input[name='u_id']").val();
+		var name = $("input[name='u_name']").val();
+		var cpr = $("input[name='u_cprf']").val() + $("input[name='u_cprl']").val();
+		var password_x = $("input[name='password']").val();
+		var password_y = $("input[name='passwordrepeat']").val();
+		var level = $("select[name='u_level']").val();
+		
+		$.post(
+			"CreateUsersServlet",
+			{u_id:id, u_name:name, u_cpr:cpr, password:password_x, passwordrepeat:password_y, u_level:level},
+			function(response) {
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"users.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				}
+			);
 		});
+		
+		var display = $("#" + showDiv).css("display");
+		
+		if(display == "none")
+			$("#" + showDiv).fadeIn("fast");
+		else if(display == "block")
+			$("#" + showDiv).fadeOut("fast");
 	});
 	
 	$("#userCreateForm").validate({
@@ -25,9 +53,9 @@
 		rules: {		
 			u_id: {
 				required: true,
-				minlength: 10,
+				minlength: 8,
 				number: true,
-				regex: /^([1-9]\d{9}){1}$/
+				regex: /^([1-9]\d{7}){1}$/
 			},
 			u_name: {
 				required: true,
@@ -52,6 +80,7 @@
 			password: {
 				required: true,
 				minlength: 8,
+				maxlength: 100,
 				regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
 				// Must contain 1 digit, 1 small letter and 1 capital letter
 			},
@@ -178,7 +207,7 @@
                 	<label for="u_id">Bruger id</label>
                 </td>
                 <td>
-                	<input id="u_id" name="u_id" type="text" maxlength="10" placeholder="xxx123" />
+                	<input id="u_id" name="u_id" type="text" maxlength="8" placeholder="12345678" />
 				</td>
 				<td class="u_id_error"></td>
             </tr>
@@ -235,7 +264,7 @@
                 <td class="u_level_error"></td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createUserSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createUserSub" value="Opret" /></td>
             	<td></td>
             </tr>
         </table>
