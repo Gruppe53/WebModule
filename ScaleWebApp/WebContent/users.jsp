@@ -39,28 +39,29 @@
 				});
 				
 				if(response.substring(1,1) == "S") {
-					$("input[name='u_id']").val();
-					$("input[name='u_name']").val();
-					$("input[name='u_cprf']").val() + $("input[name='u_cprl']").val();
-					$("input[name='password']").val();
-					$("input[name='passwordrepeat']").val();
-					$("select[name='u_level']").val();
+					$("input[name='u_id']").val("");
+					$("input[name='u_name']").val("");
+					$("input[name='u_cprf']").val("");
+					$("input[name='u_cprl']").val("");
+					$("input[name='password']").val("");
+					$("input[name='passwordrepeat']").val("");
+					$("select[name='u_level']").val("");
+					
+					var display = $("#" + showDiv).css("display");
+					
+					if(display == "none")
+						$("#" + showDiv).fadeIn("fast");
+					else if(display == "block")
+						$("#" + showDiv).fadeOut("fast");
+					
+					$("span#latestMsg").html(response).fadeIn("fast");
 				}
 				else {
-					
+					$("span#latestMsg").html(response).fadeIn("fast");
 				}
 			},
 			"html"
 		);
-		
-		var display = $("#" + showDiv).css("display");
-		
-		if(display == "none")
-			$("#" + showDiv).fadeIn("fast");
-		else if(display == "block")
-			$("#" + showDiv).fadeOut("fast");
-		
-		
 	});
 	
 	$("#userCreateForm").validate({
@@ -349,4 +350,3 @@
         </table>
 	</form>
 </div>
-<span id="latestMsg"></span>
