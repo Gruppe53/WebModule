@@ -14,6 +14,12 @@
 		}
 	});
 	
+	$("#userCreateForm").submit(function(e) {
+		$.post("CreateUsersServlet", {u_id:u_id, u_name:u_name, u_cpr:u_cprf + u_cprl, u_level:u_level}, function(data) {
+			alert("Data posted/loaded: " + data);
+		});
+	});
+	
 	$("#userCreateForm").validate({
 		// Form validation rules
 		rules: {		
@@ -165,7 +171,7 @@
 </div>
 <div id="userCreate" style="display: none;">
 	<h2>opret bruger</h2>
-	<form action="" id="userCreateForm" method="post">
+	<form id="userCreateForm" method="post">
         <table>
         	<tr>
             	<td>

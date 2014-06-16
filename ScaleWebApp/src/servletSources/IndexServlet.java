@@ -1,3 +1,6 @@
+package servletSources;
+
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -5,10 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CreateUsersServlet extends HttpServlet {
+/**
+ * Servlet implementation class IndexServlet
+ */
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public IndexServlet() {
+        super();
+    }
+    
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userAgent =  req.getHeader("user-agent");
 		String clientBrowser =  "Not known!";	
 		
@@ -18,8 +28,9 @@ public class CreateUsersServlet extends HttpServlet {
 		req.setAttribute("client.browser", clientBrowser );
 		req.getRequestDispatcher("/index.jsp").forward(req, resp);
 	}
-	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
+
 }

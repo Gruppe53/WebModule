@@ -13,10 +13,20 @@
     <description></description>
     <display-name>CreateUsersServlet</display-name>
     <servlet-name>CreateUsersServlet</servlet-name>
-    <servlet-class>CreateUsersServlet</servlet-class>
+    <servlet-class>servletSources.CreateUsersServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateUsersServlet</servlet-name>
+    <url-pattern>/CreateUsersServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IndexServlet</display-name>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>servletSources.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/web/*</url-pattern>
   </servlet-mapping>
 </web-app>
