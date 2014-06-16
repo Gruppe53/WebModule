@@ -16,8 +16,8 @@
     <servlet-class>servletSources.CreateUsersServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateUsersServlet</servlet-name>
-    <url-pattern>/CreateUsersServlet/*</url-pattern>
+    <servlet-name>CreateUserServlet</servlet-name>
+    <url-pattern>/CreateUserServlet/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

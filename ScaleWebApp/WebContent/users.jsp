@@ -25,7 +25,7 @@
 		var level = $("select[name='u_level']").val();
 		
 		$.post(
-			"CreateUsersServlet",
+			"CreateUserServlet",
 			{u_id:id, u_name:name, u_cpr:cpr, password:password_x, passwordrepeat:password_y, u_level:level},
 			function(response) {
 				$('#container').fadeOut('fast', function() {

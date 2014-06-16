@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.scale.database.*;
 
-public class CreateUsersServlet extends HttpServlet {
+public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public CreateUsersServlet() {
+	public CreateUserServlet() {
 		super();
 	}
 
