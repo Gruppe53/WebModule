@@ -136,6 +136,12 @@
 			u_level: {
 				required: "Vælg et brugerniveau."
 			}
+			
+			/*
+				Need to put in some way of positioning the error messages in the following <td class="error">-element,
+				of the current element being validated.
+				errorPlacement has been tried, no luck. Might work if someone else tries it.
+			*/
 		}
 	});
 </script>
