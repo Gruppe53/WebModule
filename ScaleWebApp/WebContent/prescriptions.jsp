@@ -1,12 +1,32 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
+	<%
+	if((Integer) session.getAttribute("u_level") > 2) {
+		out.println("document.location = ''");
+	}
+	%>
+	
+	var showDiv;
+	
+	$(".actionBtn").click(function(e) {
+		showDiv = this.getAttribute("title");
+		var display = $("#" + showDiv).css("display");
+		
+		if(display == "none")
+			$("#" + showDiv).fadeIn("fast");
+		else if(display == "block")
+			$("#" + showDiv).fadeOut("fast");
+		
+		if(showDiv == "userEdit") {
+			// TODO
+		}
+	});
+	
 	$("form").on("change", "select[name*='component']", function(e) {
 		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
-			var nextComponentNumber = parseInt($(this).attr("name").match(/[0-9]+/), 10) + 1;
-			
 			var newSelect = "<tr>"
 								+ "<td>"
-									+ "<select name=\"component" + nextComponentNumber + "\">"
+									+ "<select name=\"component[]\">"
 										+ "<option selected=\"selected\" disabled=\"disabled\">Komponent...</option>"
 										+ "<option value=\"5434sa\">Salt (5434sa)</option>"
 										+ "<option value=\"2154pa\">Paracetamol (2154pa)</option>"
@@ -28,7 +48,7 @@
 	
 </script>
 <h1>recepter</h1>
-<div title="prescriptionList" class="actionBtn" style="width: 120px">opret recept</div>
+<div title="prescriptionCreate" class="actionBtn" style="width: 120px">opret recept</div>
 <div style="clear: both;"></div>
 <div id="prescriptionList">
 	<h2>recepter</h2>
@@ -142,7 +162,7 @@
                 	<table id="componentsTable" style="border-spacing: 0px;">
                     	<tr>
                             <td>
-                                <select name="component1">
+                                <select name="component[]">
                                     <option selected="selected" disabled="disabled">Komponent...</option>
                                     <option value="5434sa">Salt (5434sa)</option>
                                     <option value="2154pa">Paracetamol (2154pa)</option>

@@ -1,4 +1,11 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
+<script>
+	<%
+	if((Integer) session.getAttribute("u_level") > 3) {
+		out.println("document.location = ''");
+	}
+	%>
+</script>
 <h1>råvarebatches</h1>
 <div title="materialbatchCreate" class="actionBtn" style="width: 160px">opret råvarebatch</div>
 <div style="clear: both;"></div>

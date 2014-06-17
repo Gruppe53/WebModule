@@ -1,6 +1,29 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
+<script>
+	<%
+	if((Integer) session.getAttribute("u_level") > 3) {
+		out.println("document.location = ''");
+	}
+	%>
+	
+	var showDiv;
+	
+	$(".actionBtn").click(function(e) {
+		showDiv = this.getAttribute("title");
+		var display = $("#" + showDiv).css("display");
+		
+		if(display == "none")
+			$("#" + showDiv).fadeIn("fast");
+		else if(display == "block")
+			$("#" + showDiv).fadeOut("fast");
+		
+		if(showDiv == "productBatchEdit") {
+			// TODO
+		}
+	});
+</script>
 <h1>produktbatches</h1>
-<div title="productbatchCreate" class="actionBtn" style="width: 160px">opret produktbatch</div>
+<div title="productBatchCreate" class="actionBtn" style="width: 160px">opret produktbatch</div>
 <div style ="clear: both;"></div>
 <div id="productBatchList">
 	<h2>Productbatches</h2>
@@ -46,11 +69,52 @@
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
-			finally {
-				rs.close();
-				con.closeSql();
-			}
 		%>
 	
 	</table>
+</div>
+<div id="productBatchCreate" style="display: none;">
+	<h2>opret produktbatch</h2>
+	<form id="productBatchCreateForm" method="post">
+        <table>
+        	<tr>
+            	<td>
+                	<label for="pb_id">Bruger id</label>
+                </td>
+                <td>
+                	<input id="pb_id" name="pb_id" type="text" maxlength="8" placeholder="12345678" />
+				</td>
+				<td class="u_id_error"></td>
+            </tr>
+            <tr>
+            	<td>
+                	<label for="pre_id">Vælg recept</label>
+                </td>
+                <td>
+                    <select id="u_level" name="u_level">
+                    	<option selected="selected" disabled="disabled">Recept</option>
+                    	<%
+	                    	rs = con.doSqlQuery("SELECT * FROM prescription ORDER BY pre_id");
+                			
+                			try {
+                				while(rs.next()) {
+                					%>
+                					<option value="<%= rs.getInt("pre_id") %>"><%= rs.getString("pre_name") %> [<%= rs.getInt("pre_id") %>]</option>
+                					<%
+                				}
+                			}
+                			catch (SQLException e) {
+                				e.printStackTrace();
+                			}
+                    	%>
+                    </select>
+                </td>
+                <td class="u_level_error"></td>
+            </tr>
+            <tr>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createUserSub" value="Opret" /></td>
+            	<td></td>
+            </tr>
+        </table>
+	</form>
 </div>

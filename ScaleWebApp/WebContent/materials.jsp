@@ -1,5 +1,10 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
+	<%
+	if((Integer) session.getAttribute("u_level") > 2) {
+		out.println("document.location = ''");
+	}
+	%>
 	var showDiv;
 	
 	$(".actionBtn").click(function(e) {
