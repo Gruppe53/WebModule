@@ -27,10 +27,22 @@
 			var newSelect = "<tr>"
 								+ "<td>"
 									+ "<select name=\"component[]\">"
-										+ "<option selected=\"selected\" disabled=\"disabled\">Komponent...</option>"
-										+ "<option value=\"5434sa\">Salt (5434sa)</option>"
-										+ "<option value=\"2154pa\">Paracetamol (2154pa)</option>"
-										+ "<option value=\"9885ac\">Acetylsalicylsyre (9885ac)</option>"
+									+ "<option value=\"\" disabled=\"disabled\" selected=\"selected\">"
+									<%
+									DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+						        	ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
+									
+									try {
+										while(rs.next()) {
+											%>
+											+ "<option value=\"<%= rs.getInt("m_id") %>\"><%= rs.getString("m_name") %> [<%= rs.getInt("m_id") %>]</option>"
+											<%
+										}
+									}
+									catch (SQLException e) {
+										e.printStackTrace();
+									}
+									%>
 									+ "</select>"
 								+ "</td>"
 								+ "<td>"
@@ -44,6 +56,46 @@
 	
 	$("form").on("click", "span[class*='delComponent']", function(e) {
 		$(this).closest("tr").remove();
+	});
+	
+	$("input[name='createPrescriptionSub']").click(function(e) {
+		var id = $("input[name='pre_id']").val();
+		var name = $("input[name='pre_name']").val();
+		var comps = $("select[name='s_name']").val();
+		
+		$.post(
+			"CreatePrescriptionServlet",
+			{pre_id:id, pre_name:name, components:comps},
+			function(response) {
+				$("#container").fadeOut('fast', function() {
+					$.get(
+						"prescriptions.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+				
+				if(response.substring(1,1) == "S") {
+					$("input[name='pre_id']").val("");
+					$("input[name='pre_name']").val("");
+					
+					var display = $("#" + showDiv).css("display");
+					
+					if(display == "none")
+						$("#" + showDiv).fadeIn("fast");
+					else if(display == "block")
+						$("#" + showDiv).fadeOut("fast");
+					
+					$("span#latestMsg").html(response).fadeIn("fast");
+				}
+				else {
+					$("span#latestMsg").html(response).fadeIn("fast");
+				}
+			},
+			"html"
+		);
 	});
 	
 </script>
@@ -60,8 +112,7 @@
             <td style="width: 6%"></td>
         </tr>
         <%
-        	DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
-        	ResultSet rs = con.doSqlQuery("SELECT * FROM prescription");
+        	rs = con.doSqlQuery("SELECT * FROM prescription");
         	
         	try {
         		int i = 0;
@@ -127,10 +178,6 @@
         	catch (SQLException e) {
         		e.printStackTrace();
         	}
-        	finally {
-        		rs.close();
-        		con.closeSql();
-        	}       
         %>
 	</table>
 </div>
@@ -140,23 +187,23 @@
         <table>
         	<tr>
             	<td>
-                	<label for="mid">Recept id</label>
+                	<label for="pre_id">Recept id</label>
                 </td>
                 <td>
-                	<input id="mid" name="mid" type="text" maxlength="8" placeholder="12345678" />
+                	<input id="pre_id" name="pre_id" type="text" maxlength="8" placeholder="12345678" />
 				</td>
             </tr>
             <tr>
             	<td>
-                	<label for="rname">Navn</label>
+                	<label for="pre_name">Navn</label>
                 </td>
                 <td>
-          			<input id="rname" name="rname" type="text" maxlength="100" placeholder="Receptnavn..." />
+          			<input id="pre_name" name="pre_name" type="text" maxlength="100" placeholder="Receptnavn..." />
 				</td>
             </tr>
             <tr>
             	<td style="vertical-align: top; text-align: left;">
-                	<label for="component">Komponenter</label>
+                	<label for="component[0]">Komponenter</label>
                 </td>
                 <td style="padding: 0px 0px 0px 0px;">
                 	<table id="componentsTable" style="border-spacing: 0px;">
@@ -164,9 +211,24 @@
                             <td>
                                 <select name="component[]">
                                     <option selected="selected" disabled="disabled">Komponent...</option>
-                                    <option value="5434sa">Salt (5434sa)</option>
-                                    <option value="2154pa">Paracetamol (2154pa)</option>
-                                    <option value="9885ac">Acetylsalicylsyre (9885ac)</option>
+                                    <%
+									rs = con.doSqlQuery("SELECT * FROM materials");
+									
+									try {
+										while(rs.next()) {
+											%>
+											<option value="<%= rs.getInt("m_id") %>"><%= rs.getString("m_name") %> [<%= rs.getInt("m_id") %>]</option>
+											<%
+										}
+									}
+									catch (SQLException e) {
+										e.printStackTrace();
+									}
+									finally {
+										rs.close();
+										con.closeSql();
+									}
+									%>
                                 </select>
                             </td>
                             <td></td>
@@ -175,7 +237,7 @@
                 </td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createPrescriptionSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createPrescriptionSub" value="Opret" /></td>
             </tr>
         </table>
 	</form>

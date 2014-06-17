@@ -21,32 +21,77 @@
 		}
 	});
 	
-	$("form").on("change", "select[name*='component']", function(e) {
-		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
-			var nextComponentNumber = parseInt($(this).attr("name").match(/[0-9]+/), 10) + 1;
-			
-			var newSelect = "<tr>"
-								+ "<td>"
-									+ "<select name=\"component" + nextComponentNumber + "\">"
-										+ "<option selected=\"selected\" disabled=\"disabled\">Komponent...</option>"
-										+ "<option value=\"5434sa\">Salt (5434sa)</option>"
-										+ "<option value=\"2154pa\">Paracetamol (2154pa)</option>"
-										+ "<option value=\"9885ac\">Acetylsalicylsyre (9885ac)</option>"
-									+ "</select>"
-								+ "</td>"
-								+ "<td>"
-									+ " <span class=\"delComponent\" style=\"cursor: pointer;\">x</span>"
-								+ "</td>"
-							+ "</tr>";
-							
-			$(this).closest("tr").after(newSelect);
+	$("#materialCreateForm").validate({
+		rules: {
+			m_id: {
+				required: true,
+				minlength: 8,
+				number: true
+			},
+			m_name: {
+				required: true
+			},
+			s_id: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			m_id: {
+				required: "Indtast et råvarenummer.",
+				minlength: "Råvarenummeret skal være 8 karaktere langt.",
+				number: "Råvarenummer må kun indeholde tal."
+			},
+			m_name: {
+				required: "Indtast et råvarenavn."
+			},
+			s_id: {
+				required: "Vælg en leverandør.",
+				number: ""
+			}
 		}
 	});
 	
-	$("form").on("click", "span[class*='delComponent']", function(e) {
-		$(this).closest("tr").remove();
+	$("input[name='createMaterialSub']").click(function(e) {
+		var id = $("input[name='m_id']").val();
+		var name = $("input[name='m_name']").val();
+		var sup = $("select[name='s_name']").val();
+		
+		$.post(
+			"CreateMaterialServlet",
+			{m_id:id, m_name:name, s_name:sup},
+			function(response) {
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"materials.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+				
+				if(response.substring(1,1) == "S") {
+					$("input[name='m_id']").val("");
+					$("input[name='m_name']").val("");
+					$("select[name='s_name']").val("");
+					
+					var display = $("#" + showDiv).css("display");
+					
+					if(display == "none")
+						$("#" + showDiv).fadeIn("fast");
+					else if(display == "block")
+						$("#" + showDiv).fadeOut("fast");
+					
+					$("span#latestMsg").html(response).fadeIn("fast");
+				}
+				else {
+					$("span#latestMsg").html(response).fadeIn("fast");
+				}
+			},
+			"html"
+		);
 	});
-	
 </script>
 <h1>råvarer</h1>
 <div title="materialCreate" class="actionBtn" style="width: 120px">opret råvare</div>
@@ -104,7 +149,7 @@
 </div>
 <div id="materialCreate" style="display: none;">
 	<h2>opret råvare</h2>
-	<form action="" method="post">
+	<form id="materialCreateForm" method="post">
         <table>
         	<tr>
             	<td>
@@ -124,21 +169,35 @@
             </tr>
             <tr>
             	<td style="vertical-align: top; text-align: left;">
-                	<label for="supplier">Leverandør</label>
+                	<label for="s_name">Leverandør</label>
                 </td>
                 <td>
-                    <select name="supplier">
+                    <select name="s_name">
                         <option selected="selected" disabled="disabled">Leverandør...</option>
-                        <option value="Alternova">Alternova</option>
-                        <option value="Bents Biokemi">Bents Biokemi</option>
-                        <option value="Takeda Pharma">Takeda Pharma</option>
-                        <option value="GlaxoSmithKline Consumer Healthcare">GlaxoSmithKline Consumer Healthcare)</option>
-                        <option value="GC Rieber Salt A/S">GC Rieber Salt A/S</option>
+                        <%
+						rs = con.doSqlQuery("SELECT * FROM suppliers");
+						
+						try {
+							while(rs.next()) {
+								%>
+								<option value="<%= rs.getString("s_name") %>"><%= rs.getString("s_name") %> [<%= rs.getInt("s_id") %>]</option>
+								<%
+							}
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+						finally {
+							rs.close();
+							con.closeSql();
+						}
+						
+						%>
                     </select>
                 </td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createMaterialSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createMaterialSub" value="Opret" /></td>
             </tr>
         </table>
 	</form>
@@ -184,3 +243,4 @@
         </table>
 	</form>
 </div>
+<span id="latestMsg"></span>

@@ -14,7 +14,10 @@ public class CreatePrescriptionServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String[] comps = req.getParameterValues("components");
+		
+		for(String c : comps)
+			System.out.println(c);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

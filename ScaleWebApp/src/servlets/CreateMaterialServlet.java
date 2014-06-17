@@ -1,10 +1,14 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import database.DBAccess;
 
 public class CreateMaterialServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -14,10 +18,64 @@ public class CreateMaterialServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = req.getSession();
+		if((Integer) session.getAttribute("u_level") > 2)
+			resp.sendRedirect("");
+		
+		else {
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("UTF-8");
+			
+			String m_id = req.getParameter("m_id");
+			String m_name = req.getParameter("m_name");
+			String s_name = req.getParameter("s_name");
+			
+			String[] strs = {m_id, m_name, s_name};
+			String[] patterns = {
+					"\\b\\d{8}\\b",
+					"([a-zA-Z]+[^0-9]*)",
+					"([a-zA-Z]+[^0-9]*)"
+			};
+			
+			if(checkVals(strs, patterns)) {
+				DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+				
+				try {
+					int rs = con.doSqlUpdate("INSERT INTO materials VALUES (" + m_id + ",'" + m_name + "','" + s_name + "')");
+					
+					if(rs > 0) 
+						resp.getWriter().write("Successfully inserted " + m_name + " with id " + m_id + " into the database.");
+					else 
+						resp.getWriter().write("Could not insert " + m_name + " with id " + m_id + " into the database.");
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
+	}
+	
+	private boolean checkVals(String[] strs, String[] patterns) {
+		if(strs.length == 0 || patterns.length == 0)
+			return false;
+		
+		System.out.println(strs.length);
+		System.out.println(patterns.length);
+		
+		for(String s : strs)
+			System.out.println(s);
+		
+		for(String p : patterns)
+			System.out.println(p);
+		
+		for(int i = 0; i < strs.length; i++) 
+			if(!(strs[i].matches(patterns[i])))
+				return false;
+		
+		return true;
 	}
 }
