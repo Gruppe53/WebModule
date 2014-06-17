@@ -31,7 +31,7 @@
 						<tr class="tableHover">
 							<td><%= rs.getInt("mb_id") %> </td>
 							<td><%= rs.getInt("m_id") %> </td>
-							<td><%= rs.getInt("amount") %> </td>
+							<td><%= rs.getInt("amount") + " g" %> </td>
 							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
 						<%
@@ -41,7 +41,7 @@
 						<tr>
 							<td><%= rs.getInt("mb_id") %> </td>
 							<td><%= rs.getInt("m_id") %> </td>
-							<td><%= rs.getInt("amount") %> </td>
+							<td><%= rs.getInt("amount") + " g"%> </td>
 							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
 						<%

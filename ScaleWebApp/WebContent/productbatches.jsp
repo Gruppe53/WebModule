@@ -42,11 +42,19 @@
 				int i = 0;
 				
 				while(rs.next()) {
+					
+					int statusInt = rs.getInt("status");
+					String statusStr = null;
+					
+					if (statusInt == 0) statusStr = "Oprettet";
+					else if (statusInt == 1) statusStr = "Under Produktion";
+					else statusStr = "Afsluttet";
+					
 					if (i % 2 == 0) {
 						%>
 						<tr class="tableHover">
 							<td><%= rs.getInt("pb_id") %>	</td>
-							<td><%= rs.getInt("status") %>	</td>
+							<td><%= statusStr %>	</td>
 							<td><%= rs.getInt("pre_id") %>	</td>
 							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
@@ -56,7 +64,7 @@
 						%>
 						<tr>
 							<td><%= rs.getInt("pb_id") %>	</td>
-							<td><%= rs.getInt("status") %>	</td>
+							<td><%= statusStr %>	</td>
 							<td><%= rs.getInt("pre_id") %>	</td>
 							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 						</tr>
