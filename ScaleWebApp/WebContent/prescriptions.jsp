@@ -42,6 +42,10 @@
 									catch (SQLException e) {
 										e.printStackTrace();
 									}
+									finally {
+										rs.close();
+										con.closeSql();
+									}
 									%>
 									+ "</select>"
 								+ "</td>"
@@ -138,6 +142,7 @@
         					}
         					
         					components.close();
+        					con.closeSql();
         					%>
         					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
@@ -165,6 +170,7 @@
         					}
         					
         					components.close();
+        					con.closeSql();
         					%>
         					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
@@ -177,6 +183,10 @@
         	}
         	catch (SQLException e) {
         		e.printStackTrace();
+        	}
+        	finally {
+        		rs.close();
+        		con.closeSql();
         	}
         %>
 	</table>
@@ -212,7 +222,7 @@
                                 <select name="component">
                                     <option selected="selected" disabled="disabled">Komponent...</option>
                                     <%
-									rs = con.doSqlQuery("SELECT * FROM materials");
+									rs = con.doSqlQuery("SELECT m_id, m_name FROM materials");
 									
 									try {
 										while(rs.next()) {

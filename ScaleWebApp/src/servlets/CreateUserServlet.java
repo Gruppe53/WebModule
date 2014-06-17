@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +54,14 @@ public class CreateUserServlet extends HttpServlet {
 				}
 				catch (Exception e) {
 					e.printStackTrace();
+				}
+				finally {
+					try {
+						con.closeSql();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}

@@ -69,6 +69,10 @@
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+			finally {
+				rs.close();
+				con.closeSql();
+			}
 		%>
 	
 	</table>
@@ -105,6 +109,10 @@
                 			}
                 			catch (SQLException e) {
                 				e.printStackTrace();
+                			}
+                			finally {
+                				rs.close();
+                				con.closeSql();
                 			}
                     	%>
                     </select>
