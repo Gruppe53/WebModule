@@ -1,5 +1,4 @@
-package org.scale.servlets;
-
+package servlets;
 
 import java.io.IOException;
 
@@ -7,26 +6,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class IndexServlet
- */
-public class IndexServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public IndexServlet() {
+    public LogoutServlet() {
         super();
     }
-    
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String userAgent =  req.getHeader("user-agent");
-		String clientBrowser =  "Not known!";	
+		HttpSession session = req.getSession();
 		
-		if(userAgent != null)
-			clientBrowser = userAgent;
-		
-		req.setAttribute("client.browser", clientBrowser );
-		req.getRequestDispatcher("/index.jsp").forward(req, resp);
+		if((Integer) session.getAttribute("u_id") != -1) {
+			session.removeAttribute("u_id");
+			session.removeAttribute("u_name");
+			session.removeAttribute("u_level");
+			
+			resp.sendRedirect("");
+		}
+		else {
+			resp.sendRedirect("");
+		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

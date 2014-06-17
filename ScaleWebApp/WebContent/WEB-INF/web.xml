@@ -2,18 +2,13 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>ScaleWebApp</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>CreateUsersServlet</display-name>
-    <servlet-name>CreateUsersServlet</servlet-name>
-    <servlet-class>servletSources.CreateUsersServlet</servlet-class>
+    <display-name>CreateUserServlet</display-name>
+    <servlet-name>CreateUserServlet</servlet-name>
+    <servlet-class>servlets.CreateUserServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateUserServlet</servlet-name>
@@ -23,7 +18,7 @@
     <description></description>
     <display-name>IndexServlet</display-name>
     <servlet-name>IndexServlet</servlet-name>
-    <servlet-class>servletSources.IndexServlet</servlet-class>
+    <servlet-class>servlets.IndexServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
@@ -33,7 +28,7 @@
     <description></description>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>servletSources.LoginServlet</servlet-class>
+    <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -43,7 +38,7 @@
     <description></description>
     <display-name>CreatePrescriptionServlet</display-name>
     <servlet-name>CreatePrescriptionServlet</servlet-name>
-    <servlet-class>org.scale.servlets.CreatePrescriptionServlet</servlet-class>
+    <servlet-class>servlets.CreatePrescriptionServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreatePrescriptionServlet</servlet-name>
@@ -53,10 +48,20 @@
     <description></description>
     <display-name>CreateMaterialServlet</display-name>
     <servlet-name>CreateMaterialServlet</servlet-name>
-    <servlet-class>org.scale.servlets.CreateMaterialServlet</servlet-class>
+    <servlet-class>servlets.CreateMaterialServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateMaterialServlet</servlet-name>
     <url-pattern>/CreateMaterialServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet/*</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,4 +1,4 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,org.scale.database.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,10 @@
 			
 			$(".menuBtn").click(function() {							// When we click on menu links
 				active = this.getAttribute("id");						// Set new active page
+				
+				if(active == "logout") {
+					document.location = "LogoutServlet";
+				}
 			
 				$(".menuBtn").css("background", "#FFF");				// Restyle menu (non-active)
 				$(".menuBtn").css("color", "#666");						// Restyle menu (non-active)
@@ -64,16 +68,42 @@
         });
 	</script>
 </head>
+<%
+	if(session.getAttribute("u_level") == null) {
+		session.setAttribute("u_id", new Integer(-1));
+		session.setAttribute("u_name", new String(""));
+		session.setAttribute("u_level", new Integer(5));
+		
+		System.out.println("New session..");
+	}
+	
+	System.out.println((Integer) session.getAttribute("u_level"));
+%>
 <body>
 	<div id="main">
     	<div id="menu">
         	<h1>navigation</h1>
         	<div id="front" class="menuBtn">front</div>
-            <div id="users" class="menuBtn">brugere</div>
-            <div id="materials" class="menuBtn">råvarer</div>
-            <div id="prescriptions" class="menuBtn">recepter</div>
-            <div id="materialbatches" class="menuBtn">råvarebatches</div>
-            <div id="productbatches" class="menuBtn">produktbatches</div>
+        	<%
+        		if((Integer)session.getAttribute("u_level") <= 1) {
+        			%>
+		            <div id="users" class="menuBtn">brugere</div>
+		            <%
+        		}
+        		if((Integer)session.getAttribute("u_level") <= 2) {
+        			%>
+		            <div id="materials" class="menuBtn">råvarer</div>
+		            <div id="prescriptions" class="menuBtn">recepter</div>
+		            <%
+        		}
+        		if((Integer)session.getAttribute("u_level") <= 3) {
+        			%>
+		            <div id="materialbatches" class="menuBtn">råvarebatches</div>
+		            <div id="productbatches" class="menuBtn">produktbatches</div>
+		            <div id="logout" class="menuBtn">log ud</div>
+            		<%
+        		}
+            %>
         </div>
         <div id="content">
             <div id="container"></div>

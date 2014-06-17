@@ -1,4 +1,4 @@
-package org.scale.database;
+package database;
 
 import java.sql.*;
 

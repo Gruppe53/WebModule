@@ -1,4 +1,4 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,org.scale.database.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
 	$("form").on("change", "select[name*='component']", function(e) {
 		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {

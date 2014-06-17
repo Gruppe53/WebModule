@@ -1,5 +1,17 @@
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <h1>front</h1>
 <p>Velkommen til Scale Webmodule.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices justo lorem, eu congue lacus condimentum eu. In vitae arcu et ante gravida tristique ut non nisi. Aliquam scelerisque neque varius sodales adipiscing. Nullam vel ornare nisl. Nullam id malesuada odio, vitae egestas ante. Donec congue at tortor at dignissim. Etiam et sollicitudin lacus. In velit diam, auctor et odio at, vestibulum blandit libero. Nunc tempor diam sed ante viverra, et dignissim mi fringilla. Nunc condimentum ornare enim nec commodo. Aenean ullamcorper nec erat cursus auctor. Nulla elementum tellus nec enim commodo, cursus dictum nunc porttitor. Sed vel dui et tortor iaculis rhoncus id a enim.</p>
-<p>Integer eu odio urna. Curabitur vitae tempor augue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam facilisis semper commodo. Fusce non arcu sed risus tempus cursus sed volutpat lacus. Morbi consequat dui pharetra lectus consequat fringilla. Proin fermentum justo magna. Pellentesque auctor nec nunc id dapibus.</p>
-<p>Vivamus vel dictum urna. Nulla ut lacus in tellus viverra scelerisque id eget orci. Vivamus vulputate nec enim nec malesuada. Cras pellentesque diam at odio vestibulum porttitor. Phasellus malesuada orci vel auctor tempus. Vivamus eu lorem euismod, tempus velit nec, tempus arcu. Mauris porttitor in enim quis scelerisque. Donec at feugiat diam. Nunc consectetur nec mi non molestie.</p>
+<div id="loginBox"></div>
+<%
+	if((Integer) session.getAttribute("u_level") >= 5) {
+		%>
+			<script>
+				$(document).ready(function(e) {
+					$.get("login.jsp",function(data) {
+						$("#loginBox").html(data).fadeIn("fast");
+					},"html");
+				});
+			</script>
+		<%
+	}
+%>

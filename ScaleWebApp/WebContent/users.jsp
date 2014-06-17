@@ -1,5 +1,11 @@
-<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,org.scale.database.*" errorPage="" pageEncoding="UTF-8" %>
+<%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
+	<%
+	if((Integer) session.getAttribute("u_level") > 0) {
+		out.println("document.location = ''");
+	}
+	%>
+	
 	var showDiv;
 	
 	$(".actionBtn").click(function(e) {
