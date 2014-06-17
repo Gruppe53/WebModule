@@ -65,11 +65,19 @@
 	$("input[name='createPrescriptionSub']").click(function(e) {
 		var id = $("input[name='pre_id']").val();
 		var name = $("input[name='pre_name']").val();
-		var comps = $("select[name='component']").val();
+		var comps = [];
+		
+		$("select[name*='component']").each(function(index) {
+			if($(this).val() != null)
+				comps.push($(this).val());
+		});
+		
+		for(var i = 0; i < comps.length; i++)
+			alert(comps[i]);
 		
 		$.post(
 			"CreatePrescriptionServlet",
-			{pre_id:id, pre_name:name, components:comps},
+			{pre_id:id, pre_name:name, 'components[]':comps},
 			function(response) {
 				$("#container").fadeOut('fast', function() {
 					$.get(
@@ -280,7 +288,7 @@
                 	<table id="componentsTable" style="border-spacing: 0px;">
                     	<tr>
                             <td>
-                                <select name="component1">
+                                <select name="editComponent">
                                     <option disabled="disabled">Komponent...</option>
                                     <option selected="selected" value="5434sa">Salt (5434sa)</option>
                                     <option value="2154pa">Paracetamol (2154pa)</option>
@@ -291,7 +299,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <select name="component2">
+                                <select name="editComponent">
                                     <option disabled="disabled">Komponent...</option>
                                     <option value="5434sa">Salt (5434sa)</option>
                                     <option value="2154pa">Paracetamol (2154pa)</option>
@@ -303,7 +311,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <select name="component3">
+                                <select name="editComponent">
                                     <option selected="selected" disabled="disabled">Komponent...</option>
                                     <option value="5434sa">Salt (5434sa)</option>
                                     <option value="2154pa">Paracetamol (2154pa)</option>
