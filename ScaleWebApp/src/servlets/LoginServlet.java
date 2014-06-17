@@ -34,15 +34,6 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		finally {
-			try {
-				rs.close();
-				con.closeSql();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		try {
 			while(rs.next()) {
 				if(password.equals(rs.getString("password"))) {
