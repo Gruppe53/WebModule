@@ -31,9 +31,8 @@ public class CreatePrescriptionServlet extends HttpServlet {
 				for(String comp : components) {
 					rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+ pre_id + ", " + comp + ", 0, 0)");
 					
-					if(rs > 0) {
+					if(rs > 0)
 						continue;
-					}
 				}
 			}
 		}
