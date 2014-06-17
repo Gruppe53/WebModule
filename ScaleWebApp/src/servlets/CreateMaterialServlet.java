@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,6 +52,14 @@ public class CreateMaterialServlet extends HttpServlet {
 				catch (Exception e) {
 					e.printStackTrace();
 				}
+				finally {
+					try {
+						con.closeSql();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -62,15 +71,6 @@ public class CreateMaterialServlet extends HttpServlet {
 	private boolean checkVals(String[] strs, String[] patterns) {
 		if(strs.length == 0 || patterns.length == 0)
 			return false;
-		
-		System.out.println(strs.length);
-		System.out.println(patterns.length);
-		
-		for(String s : strs)
-			System.out.println(s);
-		
-		for(String p : patterns)
-			System.out.println(p);
 		
 		for(int i = 0; i < strs.length; i++) 
 			if(!(strs[i].matches(patterns[i])))

@@ -26,7 +26,7 @@
 		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
 			var newSelect = "<tr>"
 								+ "<td>"
-									+ "<select name=\"component[]\">"
+									+ "<select name=\"component\">"
 									+ "<option value=\"\" disabled=\"disabled\" selected=\"selected\">"
 									<%
 									DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
@@ -61,7 +61,7 @@
 	$("input[name='createPrescriptionSub']").click(function(e) {
 		var id = $("input[name='pre_id']").val();
 		var name = $("input[name='pre_name']").val();
-		var comps = $("select[name='s_name']").val();
+		var comps = $("select[name='component']").val();
 		
 		$.post(
 			"CreatePrescriptionServlet",
@@ -209,7 +209,7 @@
                 	<table id="componentsTable" style="border-spacing: 0px;">
                     	<tr>
                             <td>
-                                <select name="component[]">
+                                <select name="component">
                                     <option selected="selected" disabled="disabled">Komponent...</option>
                                     <%
 									rs = con.doSqlQuery("SELECT * FROM materials");
