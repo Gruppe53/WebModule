@@ -100,7 +100,11 @@
         			%>
 		            <div id="materialbatches" class="menuBtn">råvarebatches</div>
 		            <div id="productbatches" class="menuBtn">produktbatches</div>
-		            <div id="logout" class="menuBtn">log ud</div>
+            		<%
+        		}
+        		if((Integer) session.getAttribute("u_level") <= 4) {
+        			%>
+        			<div id="logout" class="menuBtn">log ud</div>
             		<%
         		}
             %>
