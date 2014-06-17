@@ -141,10 +141,11 @@
         					int j = 0;
         					
         					while(components.next()) {
+        						
         						if(j == 0)
-        							comps = components.getString("m_name");
+        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
         						else
-        							comps += ", " +  components.getString("m_name");
+        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
         						
         						j++;
         					}
@@ -170,9 +171,9 @@
         					
         					while(components.next()) {
         						if(j == 0)
-        							comps = components.getString("m_name");
+        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
         						else
-        							comps += ", " +  components.getString("m_name");
+        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
         						
         						j++;
         					}
