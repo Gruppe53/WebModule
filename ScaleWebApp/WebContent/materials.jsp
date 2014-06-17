@@ -11,7 +11,7 @@
 		else if(display == "block")
 			$("#" + showDiv).fadeOut("fast");
 		
-		if(showDiv == "userEdit") {
+		if(showDiv == "materialEdit") {
 			// TODO
 		}
 	});

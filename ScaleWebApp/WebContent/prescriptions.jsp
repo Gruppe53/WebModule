@@ -28,7 +28,6 @@
 	
 </script>
 <h1>recepter</h1>
-<% //------------------------------------------------------- Bækhøj input start -------------------------------- %>
 <div title="prescriptionList" class="actionBtn" style="width: 120px">opret recept</div>
 <div style="clear: both;"></div>
 <div id="prescriptionList">
@@ -51,16 +50,25 @@
         			if (i % 2 == 0) {
         				%>
         				<tr class="tableHover">
-        					<td><%= rs.getInt("pre_id")  %>		</td>
-        					<td><%= rs.getString("pre_name") %>	</td>
+        					<td><%= rs.getInt("pre_id")  %></td>
+        					<td><%= rs.getString("pre_name") %></td>
+        					<%
+        					ResultSet components = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + rs.getInt("pre_id"));
+        					String comps = "";
+        					int j = 0;
         					
-        					<% ResultSet komponents = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id='" + rs.getInt("pre_id") + "'");
-        					String kr = "";
+        					while(components.next()) {
+        						if(j == 0)
+        							comps = components.getString("m_name");
+        						else
+        							comps += ", " +  components.getString("m_name");
+        						
+        						j++;
+        					}
         					
-        					while(komponents.next()){
-        						kr = kr + ", " +  komponents.getString("m_navn");}
+        					components.close();
         					%>
-        					<td><%= kr %></td>
+        					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         				</tr>
         				<% 
@@ -69,20 +77,30 @@
         				%>
         				
         				<tr>
-        					<td><%= rs.getInt("pre_id")  %>		</td>
-        					<td><%= rs.getString("pre_name") %>	</td>
+        					<td><%= rs.getInt("pre_id")  %></td>
+        					<td><%= rs.getString("pre_name") %></td>
+        					<%
+        					ResultSet components = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + rs.getInt("pre_id"));
+        					String comps = "";
+        					int j = 0;
         					
-        					<% ResultSet komponents = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id='" + rs.getInt("pre_id") + "'");
-        					String kr = "";
+        					while(components.next()) {
+        						if(j == 0)
+        							comps = components.getString("m_name");
+        						else
+        							comps += ", " +  components.getString("m_name");
+        						
+        						j++;
+        					}
         					
-        					while(komponents.next()){
-        						kr = kr + ", " +  komponents.getString("m_navn");}
+        					components.close();
         					%>
-        					<td><%= kr %></td>
+        					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
         				</tr>
         				<%
         			}
+        			
         			i++;
         		}			
         	}
@@ -96,217 +114,7 @@
         %>
 	</table>
 </div>
-
-<% //------------------------------------------------------- Bækhøj input slut -------------------------------- %>
-
-
-
-<div class="actionBtn" style="width: 120px">opret recept</div>
-<div style="clear: both;"></div>
-<div id="prescriptionList">
-	<h2>recepter</h2>
-	<table>
-    	<tr>
-        	<td><strong>id</strong></td>
-            <td><strong>navn</strong></td>
-            <td><strong>komponenter</strong></td>
-            <td style="width: 6%"></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54831969</td>
-            <td>Salt</td>
-            <td>Natrium, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>65423487</td>
-            <td>Nullam</td>
-            <td>Codein, Omeprazol, Paracetamol</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>25351243</td>
-            <td>Maecenas sit amet</td>
-            <td>Salt, Natrium, Codein, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>76542343</td>
-            <td>Sed lacinia interdum</td>
-            <td>Acetylsalicylsyre, Omeprazol, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54326543</td>
-            <td>Aenean nibh enim</td>
-            <td>Omeprazol, Chlorid, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>34642841</td>
-            <td>Curabitur ut gravida</td>
-            <td>Omeprazol, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54396254</td>
-            <td>Aenean lacus dui</td>
-            <td>Paracetamol, Acetylsalicylsyre, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>12381352</td>
-            <td>Aliquam varius odio</td>
-            <td>Acetylsalicylsyre, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54831969</td>
-            <td>Salt</td>
-            <td>Natrium, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>65423487</td>
-            <td>Nullam</td>
-            <td>Codein, Omeprazol, Paracetamol</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>25351243</td>
-            <td>Maecenas sit amet</td>
-            <td>Salt, Natrium, Codein, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>76542343</td>
-            <td>Sed lacinia interdum</td>
-            <td>Acetylsalicylsyre, Omeprazol, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54326543</td>
-            <td>Aenean nibh enim</td>
-            <td>Omeprazol, Chlorid, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>34642841</td>
-            <td>Curabitur ut gravida</td>
-            <td>Omeprazol, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54396254</td>
-            <td>Aenean lacus dui</td>
-            <td>Paracetamol, Acetylsalicylsyre, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>12381352</td>
-            <td>Aliquam varius odio</td>
-            <td>Acetylsalicylsyre, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54831969</td>
-            <td>Salt</td>
-            <td>Natrium, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>65423487</td>
-            <td>Nullam</td>
-            <td>Codein, Omeprazol, Paracetamol</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>25351243</td>
-            <td>Maecenas sit amet</td>
-            <td>Salt, Natrium, Codein, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>76542343</td>
-            <td>Sed lacinia interdum</td>
-            <td>Acetylsalicylsyre, Omeprazol, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54326543</td>
-            <td>Aenean nibh enim</td>
-            <td>Omeprazol, Chlorid, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>34642841</td>
-            <td>Curabitur ut gravida</td>
-            <td>Omeprazol, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54396254</td>
-            <td>Aenean lacus dui</td>
-            <td>Paracetamol, Acetylsalicylsyre, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>12381352</td>
-            <td>Aliquam varius odio</td>
-            <td>Acetylsalicylsyre, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54831969</td>
-            <td>Salt</td>
-            <td>Natrium, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>65423487</td>
-            <td>Nullam</td>
-            <td>Codein, Omeprazol, Paracetamol</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>25351243</td>
-            <td>Maecenas sit amet</td>
-            <td>Salt, Natrium, Codein, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>76542343</td>
-            <td>Sed lacinia interdum</td>
-            <td>Acetylsalicylsyre, Omeprazol, Chlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54326543</td>
-            <td>Aenean nibh enim</td>
-            <td>Omeprazol, Chlorid, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>34642841</td>
-            <td>Curabitur ut gravida</td>
-            <td>Omeprazol, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr bgcolor="#dfecff">
-        	<td>54396254</td>
-            <td>Aenean lacus dui</td>
-            <td>Paracetamol, Acetylsalicylsyre, Trospiumchlorid</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-        <tr>
-        	<td>12381352</td>
-            <td>Aliquam varius odio</td>
-            <td>Acetylsalicylsyre, Codein</td>
-            <td style="text-align: center;"><a href=""><img alt="reddel"  src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel"  src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
-        </tr>
-    </table>
-</div>
-<div id="prescriptionCreate">
+<div id="prescriptionCreate" style="display: none;">
 	<h2>opret recept</h2>
 	<form action="" method="post" id="preCreate" name="prescriptionCreate">
         <table>
@@ -352,7 +160,7 @@
         </table>
 	</form>
 </div>
-<div id="prescriptionEdit">
+<div id="prescriptionEdit" style="display: none;">
 	<h2>rediger recept</h2>
 	<form action="" method="post" id="preCreate" name="prescriptionCreate">
         <table>

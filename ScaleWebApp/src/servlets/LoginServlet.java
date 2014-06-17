@@ -47,10 +47,11 @@ public class LoginServlet extends HttpServlet {
 					
 					System.out.println("Success");
 					
-					resp.sendRedirect("index.jsp");
+					resp.sendRedirect("");
 				}
 				else {
 					System.out.println("Failure.");
+					resp.sendRedirect("");
 				}
 			}
 		}

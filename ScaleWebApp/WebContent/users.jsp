@@ -1,7 +1,7 @@
 <%@	page language="java" import="java.sql.*, java.util.*, java.text.*,database.*" errorPage="" pageEncoding="UTF-8" %>
 <script>
 	<%
-	if((Integer) session.getAttribute("u_level") > 0) {
+	if((Integer) session.getAttribute("u_level") > 1) {
 		out.println("document.location = ''");
 	}
 	%>
