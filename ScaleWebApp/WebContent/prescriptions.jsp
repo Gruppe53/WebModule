@@ -29,7 +29,7 @@
 									+ "<select name=\"component\">"
 									+ "<option value=\"\" disabled=\"disabled\" selected=\"selected\">"
 									<%
-									DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+									DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 						        	ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
 									
 									try {
@@ -125,33 +125,33 @@
         </tr>
         <%
         	rs = con.doSqlQuery("SELECT * FROM prescription");
+        	ResultSet components = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials");
         	
         	try {
         		int i = 0;
         		
         		while(rs.next()) {
+        			components.first();
+        			
         			if (i % 2 == 0) {
         				%>
         				<tr class="tableHover">
         					<td><%= rs.getInt("pre_id")  %></td>
         					<td><%= rs.getString("pre_name") %></td>
         					<%
-        					ResultSet components = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + rs.getInt("pre_id"));
         					String comps = "";
         					int j = 0;
         					
         					while(components.next()) {
-        						
-        						if(j == 0)
-        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
-        						else
-        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
-        						
-        						j++;
+        						if(rs.getInt("pre_id") == components.getInt("pre_id")) {
+	        						if(j == 0)
+	        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
+	        						else
+	        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
+	        						
+	        						j++;
+        						}
         					}
-        					
-        					components.close();
-        					con.closeSql();
         					%>
         					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
@@ -165,21 +165,19 @@
         					<td><%= rs.getInt("pre_id")  %></td>
         					<td><%= rs.getString("pre_name") %></td>
         					<%
-        					ResultSet components = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + rs.getInt("pre_id"));
         					String comps = "";
         					int j = 0;
         					
         					while(components.next()) {
-        						if(j == 0)
-        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
-        						else
-        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
-        						
-        						j++;
+        						if(rs.getInt("pre_id") == components.getInt("pre_id")) {
+	        						if(j == 0)
+	        							comps = components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
+	        						else
+	        							comps += ", " +  components.getString("m_name") + " (" + components.getDouble("netto") + " g)";
+	        						
+	        						j++;
+        						}
         					}
-        					
-        					components.close();
-        					con.closeSql();
         					%>
         					<td><%= comps %></td>
         					<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
@@ -188,7 +186,9 @@
         			}
         			
         			i++;
-        		}			
+        		}
+        		
+        		components.close();
         	}
         	catch (SQLException e) {
         		e.printStackTrace();

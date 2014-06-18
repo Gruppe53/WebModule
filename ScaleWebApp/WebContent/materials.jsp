@@ -106,7 +106,7 @@
             <td style="width: 6%"></td>
         </tr>
         <%
-	        DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+	        DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 			ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
 		
 			try {

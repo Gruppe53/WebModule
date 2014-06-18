@@ -2,12 +2,12 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.DBAccess;
 
@@ -19,11 +19,16 @@ public class CreatePrescriptionServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		
 		String pre_id = req.getParameter("pre_id");
 		String pre_name = req.getParameter("pre_name");
 		String[] components = req.getParameterValues("components[]");
 		
 		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+		
+		if(!((Integer) session.getAttribute("u_level") > 2))
+			resp.sendRedirect("");
 		
 		try {
 			int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
