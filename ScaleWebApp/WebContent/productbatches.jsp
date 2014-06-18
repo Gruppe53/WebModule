@@ -8,6 +8,31 @@
 	
 	var showDiv;
 	
+	$("#productBatchCreateForm").validate({
+		rules: {
+			pb_id: {
+				required: true,
+				minlength: 8,
+				number: true,
+				regex: /^([1-9]\d{7}){1}$/
+			},
+			pre_id: {
+				required: true,
+			}
+		},
+		messages: {
+			pb_id:{
+				required: "Indtast produktbatch-ID.",
+				minlength: "produktbatch Id skal være på minimum.",
+				number: "produktbatch-ID",
+				regex: "ID kan ikke starte med 0."
+			},
+			pre_id:{
+				required: "Vælg recept.",
+			}
+		}
+	});
+	
 	$(".actionBtn").click(function(e) {
 		showDiv = this.getAttribute("title");
 		var display = $("#" + showDiv).css("display");

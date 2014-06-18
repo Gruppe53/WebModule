@@ -26,13 +26,27 @@
 				required: true,
 				minlength: 8,
 				number: true
+			},
+			mb_amount: {
+				required: true,
+				number:true
+			},
+			m_id: {
+				required: true
 			}
 		},
 		messages: {
 			mb_id: {
-				required: "Du skal indtaste et råvarebatch ID.",
-				minlength: "Der skal indtastes et ID på præcis 8 tal.",
-				number: "Der må kun bruges tal til ID."
+				required: "Indtast et råvarebatch-ID.",
+				minlength: "Råvarebatch-ID skal være på 8 tal.",
+				number: "Råvarebatch-ID skal være tal."
+			},
+			mb_amount: {
+				required: "Indtast mængden.",
+				number: "Mængden skal være tal."
+			},
+			m_id: {
+				required: "Vælg en recept."
 			}
 		}
 	});
@@ -142,7 +156,7 @@
 			</tr>
 			<tr>
 				<td><label for="mb_amount">Mængde</label>
-				<td><input id="mb_amount" name="mb_amount" placeholder="10000000" type="text"></td>
+				<td><input id="mb_amount" name="mb_amount" placeholder="10000000" type="text" maxlength="20"></td>
 			</tr>
 			<tr>
 				<td><label for="m_id">Råvare</label></td>

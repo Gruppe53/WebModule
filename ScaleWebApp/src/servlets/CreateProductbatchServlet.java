@@ -21,28 +21,46 @@ public class CreateProductbatchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		String pb_id = req.getParameter("pb_id");
-		String pre_id= req.getParameter("pre_id");
-		
-		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
-		
 		if((Integer) session.getAttribute("u_level") > 3)
 			resp.sendRedirect("");
 		
 		else {
-			try {
-				con.doSqlUpdate("INSERT INTO productbatch VALUES('"+ pb_id + "', '0', '" + pre_id + "')");
-				}
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("UTF-8");
 			
-			catch (Exception e) { 
-				e.printStackTrace();
+			String pb_id = req.getParameter("pb_id");
+			String pre_id= req.getParameter("pre_id");
+
+			String[] strs = {pb_id, pre_id};
+			String[] patterns = {
+					"\\b\\d{8}\\b",
+					"\\b\\d{8}\\b"
+			};
+			
+			if(checkVals(strs, patterns)) {
+				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				
+				try {
+					con.doSqlUpdate("INSERT INTO productbatch VALUES('"+ pb_id + "', '0', '" + pre_id + "')");
+				}
+
+				catch (Exception e) { 
+					e.printStackTrace();
 				}
 			}
 		}
+	}
 	
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
-
+	
+	private boolean checkVals(String[] strs, String[] patterns) {
+		for(int i = 0; i < strs.length; i++) 
+			if(!(strs[i].matches(patterns[i])))
+				return false;
+		
+		return true;
+	}
 }

@@ -21,27 +21,49 @@ public class CreateMaterialbatchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		String mb_id = req.getParameter("mb_id");
-		String m_id = req.getParameter("m_id");
-		String amount = req.getParameter("mb_amount");
-		
-		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
-		
 		if((Integer) session.getAttribute("u_level") > 2) //TODO Check user level
 			resp.sendRedirect("");
 		
 		else {
-			try{
-				con.doSqlUpdate("INSERT INTO matbatch VALUES('" + mb_id +"', '" + m_id +"', '" + amount + "')");
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("UTF-8");
+			
+			String mb_id = req.getParameter("mb_id");
+			String m_id = req.getParameter("m_id");
+			String amount = req.getParameter("mb_amount");
+			
+			String[] strs = {mb_id, m_id, amount};
+			String[] patterns = {
+					"\\b\\d{8}\\b",
+					"\\b\\d{8}\\b",
+					"(?=.*\\d).{1,8}"
+			};
+
+			if(checkVals(strs, patterns)){
+				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+
+				try{
+					con.doSqlUpdate("INSERT INTO matbatch VALUES('" + mb_id +"', '" + m_id +"', '" + amount + "')");
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+
+			
 		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
+	}
+	
+	private boolean checkVals(String[] strs, String[] patterns) {
+		for(int i = 0; i < strs.length; i++) 
+			if(!(strs[i].matches(patterns[i])))
+				return false;
+		
+		return true;
 	}
 
 }
