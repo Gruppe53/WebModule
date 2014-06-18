@@ -69,7 +69,7 @@
 	</script>
 </head>
 <%
-	if(session.getAttribute("u_level") == null) {
+	if(session.isNew()) {
 		session.setAttribute("u_id", new Integer(-1));
 		session.setAttribute("u_name", new String(""));
 		session.setAttribute("u_level", new Integer(5));
