@@ -45,8 +45,6 @@ public class LoginServlet extends HttpServlet {
 					
 					session.setMaxInactiveInterval(20*60);
 					
-					System.out.println("Success");
-					
 					resp.sendRedirect("");
 				}
 				else {
