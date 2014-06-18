@@ -4,6 +4,9 @@
 	if((Integer) session.getAttribute("u_level") > 2) {
 		out.println("document.location = ''");
 	}
+	
+	DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+	ResultSet rs = null;
 	%>
 	
 	var showDiv;
@@ -29,8 +32,7 @@
 									+ "<select name=\"component\">"
 									+ "<option disabled=\"disabled\" selected=\"selected\">Komponent...</option>"
 									<%
-									DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
-									ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
+									rs = con.doSqlQuery("SELECT * FROM materials");
 									
 									try {
 										while(rs.next()) {

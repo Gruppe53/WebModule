@@ -60,3 +60,14 @@
 		%>
 	</table>
 </div>
+<div id="createMaterialBatch">
+	<h2>opret råvarebatch</h2>
+	<form id="createMaterialBatchForm">
+		<table>
+			<tr>
+				<td><label for="mb_id">y0</label></td>
+				<td><input name="mb_id" value="" placeholder="12345678" /></td>
+			</tr>
+		</table>
+	</form>
+</div>

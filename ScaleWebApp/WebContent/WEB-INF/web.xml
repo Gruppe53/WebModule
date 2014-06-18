@@ -64,4 +64,24 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateProductbatchServlet</display-name>
+    <servlet-name>CreateProductbatchServlet</servlet-name>
+    <servlet-class>servlets.CreateProductbatchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateProductbatchServlet</servlet-name>
+    <url-pattern>/CreateProductbatchServlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateMaterialbatchServlet</display-name>
+    <servlet-name>CreateMaterialbatchServlet</servlet-name>
+    <servlet-class>servlets.CreateMaterialbatchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMaterialbatchServlet</servlet-name>
+    <url-pattern>/CreateMaterialbatchServlet/*</url-pattern>
+  </servlet-mapping>
 </web-app>
