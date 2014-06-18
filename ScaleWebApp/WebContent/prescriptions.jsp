@@ -27,10 +27,10 @@
 			var newSelect = "<tr>"
 								+ "<td>"
 									+ "<select name=\"component\">"
-									+ "<option value=\"\" disabled=\"disabled\" selected=\"selected\">"
+									+ "<option disabled=\"disabled\" selected=\"selected\">Komponent...</option>"
 									<%
 									DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
-						        	ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
+									ResultSet rs = con.doSqlQuery("SELECT * FROM materials");
 									
 									try {
 										while(rs.next()) {

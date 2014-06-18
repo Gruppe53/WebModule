@@ -21,6 +21,10 @@
 			// TODO
 		}
 	});
+	
+	$("input[name='createProductBatchSub']").click(function(e) {
+		alert("y0");
+	});
 </script>
 <h1>produktbatches</h1>
 <div title="productBatchCreate" class="actionBtn" style="width: 160px">opret produktbatch</div>
@@ -128,7 +132,7 @@
                 <td class="u_level_error"></td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createUserSub" value="Opret" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createProductBatchSub" value="Opret" /></td>
             	<td></td>
             </tr>
         </table>

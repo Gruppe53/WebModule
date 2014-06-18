@@ -45,14 +45,6 @@ public class CreatePrescriptionServlet extends HttpServlet {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			finally {
-				try {
-					con.closeSql();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 
