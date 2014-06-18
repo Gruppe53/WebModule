@@ -20,10 +20,15 @@ public class CreateUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
+		
+		System.out.println("Yes.. test");
+		
 		if((Integer) session.getAttribute("u_level") > 1)
 			resp.sendRedirect("");
 		
-		else {
+		System.out.println("Det nåede du...");
+		
+		//else {
 			resp.setContentType("text/plain");
 			resp.setCharacterEncoding("UTF-8");
 			
@@ -43,7 +48,7 @@ public class CreateUserServlet extends HttpServlet {
 			};
 			
 			if(checkVals(strs, patterns) && password.equals(passwordrepeat)) {
-				DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 				try {
 					int rs = con.doSqlUpdate("INSERT INTO user VALUES ('" + u_id + "','" + u_name + "','" + u_cpr + "','" + password + "'," + u_level + ", 1)");
 					
@@ -64,7 +69,7 @@ public class CreateUserServlet extends HttpServlet {
 					}
 				}
 			}
-		}
+		//}
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

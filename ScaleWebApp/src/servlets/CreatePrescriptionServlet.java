@@ -25,7 +25,7 @@ public class CreatePrescriptionServlet extends HttpServlet {
 		String pre_name = req.getParameter("pre_name");
 		String[] components = req.getParameterValues("components[]");
 		
-		DBAccess con = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 		
 		if(!((Integer) session.getAttribute("u_level") > 2))
 			resp.sendRedirect("");
