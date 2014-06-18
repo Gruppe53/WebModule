@@ -94,20 +94,14 @@
 	<form id="productBatchCreateForm" method="post">
         <table>
         	<tr>
-            	<td>
-                	<label for="pb_id">Bruger id</label>
-                </td>
-                <td>
-                	<input id="pb_id" name="pb_id" type="text" maxlength="8" placeholder="12345678" />
-				</td>
-				<td class="u_id_error"></td>
+            	<td><label for="pb_id">ProduktBatch Id</label></td>
+                <td><input id="pb_id" name="pb_id" type="text" maxlength="8" placeholder="12345678" /></td>
+				
             </tr>
             <tr>
-            	<td>
-                	<label for="pre_id">Vælg recept</label>
-                </td>
+                <td><label for="pre_id">Vælg recept</label></td>
                 <td>
-                    <select id="u_level" name="u_level">
+                    <select id="pre_id" name="pre_id">
                     	<option selected="selected" disabled="disabled">Recept</option>
                     	<%
 	                    	rs = con.doSqlQuery("SELECT * FROM prescription ORDER BY pre_id");
@@ -129,7 +123,6 @@
                     	%>
                     </select>
                 </td>
-                <td class="u_level_error"></td>
             </tr>
             <tr>
             	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createProductBatchSub" value="Opret" /></td>
