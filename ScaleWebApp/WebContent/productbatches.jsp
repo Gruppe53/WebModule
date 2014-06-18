@@ -23,7 +23,41 @@
 	});
 	
 	$("input[name='createProductBatchSub']").click(function(e) {
-		alert("y0");
+		alert("Under udvikling");
+		var id =$("input[name='pb_id']").val();
+		var preId = $("input[name='pre_id']").val();
+		
+		$.post(
+				"CreateProductbatchServlet",
+				{pb_id:id, pre_id:preId},
+				function(response) {
+					$("#container").fadeOut("fast", function() {
+						$.get(
+							"productbatches.jsp", //TODO check here if right '.jsp' ?
+							function(data) {
+								$("#container").html(data).fadeIn("fast");
+							},
+							"html"
+						);
+					});
+					
+					if(response.substring(1,1) =="S") {
+						$("input[name='pb_id']").val("");
+						$("select[name='pre_id']").val("");
+						
+						var display = $("#" + showDiv).css("display");
+						
+						if(display == "none")
+							$("#" + showDiv).fadeIn("fast");
+						else if(display == "block")
+							$("#" + showDiv).fadeOut("fast");
+					}
+					else {
+						$("span#latestMsg").html(response).fadeIn("fast");
+					}
+				},
+				"html"
+		);
 	});
 </script>
 <h1>produktbatches</h1>

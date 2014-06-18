@@ -43,7 +43,7 @@
 		var mid = $("select[name='m_id']").val();
 		
 		$.post(
-			"CreateProductbatchServlet",
+			"CreateMaterialbatchServlet",
 			{mb_id:id, mb_amount:amount, m_id:mid},
 			function(response) {
 				$("#container").fadeOut("fast", function() {
