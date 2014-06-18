@@ -48,7 +48,7 @@
 			function(response) {
 				$("#container").fadeOut("fast", function() {
 					$.get(
-						"materials.jsp",
+						"materials.jsp", //TODO check here if right '.jsp' ?
 						function(data) {
 							$("#container").html(data).fadeIn("fast");
 						},
