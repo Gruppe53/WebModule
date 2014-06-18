@@ -21,14 +21,10 @@ public class CreateUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		System.out.println("Yes.. test");
-		
 		if((Integer) session.getAttribute("u_level") > 1)
 			resp.sendRedirect("");
 		
-		System.out.println("Det nåede du...");
-		
-		//else {
+		else {
 			resp.setContentType("text/plain");
 			resp.setCharacterEncoding("UTF-8");
 			
@@ -69,7 +65,7 @@ public class CreateUserServlet extends HttpServlet {
 					}
 				}
 			}
-		//}
+		}
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

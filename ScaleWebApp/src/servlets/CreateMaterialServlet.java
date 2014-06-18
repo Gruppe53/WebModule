@@ -20,6 +20,7 @@ public class CreateMaterialServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
+		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");
 		

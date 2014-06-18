@@ -27,29 +27,31 @@ public class CreatePrescriptionServlet extends HttpServlet {
 		
 		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 		
-		if(!((Integer) session.getAttribute("u_level") > 2))
+		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");
 		
-		try {
-			int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
-			if(rs > 0) {
-				for(String comp : components) {
-					rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+ pre_id + ", " + comp + ", 0, 0)");
-					
-					if(rs > 0)
-						continue;
+		else {
+			try {
+				int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
+				if(rs > 0) {
+					for(String comp : components) {
+						rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+ pre_id + ", " + comp + ", 0, 0)");
+						
+						if(rs > 0)
+							continue;
+					}
 				}
 			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				con.closeSql();
-			}
-			catch (SQLException e) {
+			catch (Exception e) {
 				e.printStackTrace();
+			}
+			finally {
+				try {
+					con.closeSql();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
