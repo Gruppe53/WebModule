@@ -5,9 +5,23 @@
 		out.println("document.location = ''");
 	}
 	%>
+	
+	$(".actionBtn").click(function(e) {
+		showDiv = this.getAttribute("title");
+		var display = $("#" + showDiv).css("display");
+		
+		if(display == "none")
+			$("#" + showDiv).fadeIn("fast");
+		else if(display == "block")
+			$("#" + showDiv).fadeOut("fast");
+		
+		if(showDiv == "materialBatchEdit") {
+			// TODO
+		}
+	});
 </script>
 <h1>råvarebatches</h1>
-<div title="materialbatchCreate" class="actionBtn" style="width: 160px">opret råvarebatch</div>
+<div title="materialBatchCreate" class="actionBtn" style="width: 160px">opret råvarebatch</div>
 <div style="clear: both;"></div>
 <div id="materialBatchList">
 	<h2>råvarebatches</h2>
@@ -60,9 +74,9 @@
 		%>
 	</table>
 </div>
-<div id="createMaterialBatch">
+<div id="materialBatchCreate" style="display: none;">
 	<h2>opret råvarebatch</h2>
-	<form id="createMaterialBatchForm">
+	<form id="materialBatchCreateForm">
 		<table>
 			<tr>
 				<td><label for="mb_id">y0</label></td>
