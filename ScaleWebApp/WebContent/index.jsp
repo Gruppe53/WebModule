@@ -73,11 +73,7 @@
 		session.setAttribute("u_id", new Integer(-1));
 		session.setAttribute("u_name", new String(""));
 		session.setAttribute("u_level", new Integer(5));
-		
-		System.out.println("New session..");
 	}
-	
-	System.out.println((Integer) session.getAttribute("u_level"));
 %>
 <body>
 	<div id="main">

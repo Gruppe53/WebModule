@@ -45,6 +45,7 @@ public class CreateUserServlet extends HttpServlet {
 			
 			if(checkVals(strs, patterns) && password.equals(passwordrepeat)) {
 				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				
 				try {
 					int rs = con.doSqlUpdate("INSERT INTO user VALUES ('" + u_id + "','" + u_name + "','" + u_cpr + "','" + password + "'," + u_level + ", 1)");
 					
@@ -55,14 +56,6 @@ public class CreateUserServlet extends HttpServlet {
 				}
 				catch (Exception e) {
 					e.printStackTrace();
-				}
-				finally {
-					try {
-						con.closeSql();
-					}
-					catch(SQLException e) {
-						e.printStackTrace();
-					}
 				}
 			}
 		}

@@ -184,13 +184,27 @@
 				int i = 0;
 				
 				while(rs.next()) {
+					int userInt = rs.getInt("u_level");
+					String userStr = null;
+					
+					if (userInt == 1)
+						userStr = "Administrator";
+					else if (userInt == 2)
+						userStr = "Farmaceut";
+					else if (userInt == 3)
+						userStr = "Værkfører";
+					else if (userInt == 4)
+						userStr = "Operatør";
+					else
+						userStr = "Ukendt";
+					
 					if(i % 2 == 0) {
 						%>
 						<tr class="tableHover">
 				        	<td><%= rs.getInt("u_id") %></td>
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
-				            <td><%= rs.getInt("u_level") %></td>
+				            <td><%= userStr %></td>
 				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 				        </tr>
 						<%
@@ -201,7 +215,7 @@
 				        	<td><%= rs.getInt("u_id") %></td>
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
-				            <td><%= rs.getInt("u_level") %></td>
+				            <td><%= userStr %></td>
 				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
 				        </tr>
 				        <%
@@ -351,7 +365,7 @@
                 </td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="submit" value="Fortryd" /><input type="submit" name="editUserSub" value="Rediger" /></td>
+            	<td align="right" colspan="2"><input type="submit" value="Fortryd" /><input type="button" name="editUserSub" value="Rediger" /></td>
             </tr>
         </table>
 	</form>
