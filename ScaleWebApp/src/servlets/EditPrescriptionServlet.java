@@ -33,10 +33,23 @@ public class EditPrescriptionServlet extends HttpServlet {
 			DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 			
 			try {
-				ResultSet rs = con.doSqlQuery("SELECT * FROM materials WHERE pre_id = " + pre_id);
+				ResultSet rs = con.doSqlQuery("SELECT * FROM prescription WHERE pre_id = " + pre_id);
+				ResultSet cp = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + pre_id);
+				
+				String comps = "";
+				int j = 0;
+				
+				while(cp.next()) {
+					if(j == 0)
+						comps += cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
+					else
+						comps += "||" + cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
+					
+					j++;
+				}
 				
 				while(rs.next())
-					resp.getWriter().write(rs.getInt("pre_id")+"||"+rs.getString("pre_name")+"||"+rs.getString("supplier"));
+					resp.getWriter().write(rs.getInt("pre_id")+"||"+rs.getString("pre_name")+"||"+comps);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
