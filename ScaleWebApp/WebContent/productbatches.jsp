@@ -49,8 +49,8 @@
 	
 	$("input[name='createProductBatchSub']").click(function(e) {
 		alert("Under udvikling");
-		var id =$("input[name='pb_id']").val();
-		var preId = $("input[name='pre_id']").val();
+		var id = $("input[name='pb_id']").val();
+		var preId = $("select[name='pre_id']").val();
 		
 		$.post(
 				"CreateProductbatchServlet",
@@ -58,28 +58,13 @@
 				function(response) {
 					$("#container").fadeOut("fast", function() {
 						$.get(
-							"productbatches.jsp", //TODO check here if right '.jsp' ?
+							"productbatches.jsp",
 							function(data) {
 								$("#container").html(data).fadeIn("fast");
 							},
 							"html"
 						);
 					});
-					
-					if(response.substring(1,1) =="S") {
-						$("input[name='pb_id']").val("");
-						$("select[name='pre_id']").val("");
-						
-						var display = $("#" + showDiv).css("display");
-						
-						if(display == "none")
-							$("#" + showDiv).fadeIn("fast");
-						else if(display == "block")
-							$("#" + showDiv).fadeOut("fast");
-					}
-					else {
-						$("span#latestMsg").html(response).fadeIn("fast");
-					}
 				},
 				"html"
 		);
@@ -155,7 +140,6 @@
         	<tr>
             	<td><label for="pb_id">ProduktBatch Id</label></td>
                 <td><input id="pb_id" name="pb_id" type="text" maxlength="8" placeholder="12345678" /></td>
-				
             </tr>
             <tr>
                 <td><label for="pre_id">Vælg recept</label></td>
@@ -163,7 +147,7 @@
                     <select id="pre_id" name="pre_id">
                     	<option selected="selected" disabled="disabled">Recept</option>
                     	<%
-	                    	rs = con.doSqlQuery("SELECT * FROM prescription ORDER BY pre_id");
+	                    	rs = con.doSqlQuery("SELECT * FROM prescription");
                 			
                 			try {
                 				while(rs.next()) {

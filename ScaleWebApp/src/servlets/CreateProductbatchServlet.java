@@ -29,7 +29,7 @@ public class CreateProductbatchServlet extends HttpServlet {
 			resp.setCharacterEncoding("UTF-8");
 			
 			String pb_id = req.getParameter("pb_id");
-			String pre_id= req.getParameter("pre_id");
+			String pre_id = req.getParameter("pre_id");
 
 			String[] strs = {pb_id, pre_id};
 			String[] patterns = {
