@@ -33,10 +33,13 @@ public class EditProductbatchServlet extends HttpServlet {
 			DBAccess con = new DBAccess();
 			
 			try {
-				ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch WHERE pb_id = " + pb_id);
+				ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch WHERE pb_id = " + pb_id + " AND status = 0");
 				
-				while(rs.next())
-					resp.getWriter().write(rs.getInt("pb_id")+"||"+rs.getString("pb_id"));
+				if(!rs.isBeforeFirst())
+					resp.getWriter().write("||na||");
+				else
+					while(rs.next())
+						resp.getWriter().write(rs.getInt("pb_id")+"||"+rs.getString("pre_id")+"||"+rs.getInt("status"));
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -53,16 +56,18 @@ public class EditProductbatchServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		
+		String pb_id = req.getParameter("pb_id");
 		String pre_id = req.getParameter("pre_id");
-		String pre_name = req.getParameter("pre_name");
-		String[] components = req.getParameterValues("components[]");
-		String[] nettos = req.getParameterValues("nettos[]");
-		String[] tolerance = req.getParameterValues("tolerance[]");
+		String status = req.getParameter("status");
 		
-		String[] strs = {pre_name};
-		String[] patterns = {"([a-zA-Z]+[^0-9]*)"};
+		System.out.println(pb_id);
+		System.out.println(pre_id);
+		System.out.println(status);
 		
-		if((Integer) session.getAttribute("u_level") > 2)
+		String[] strs = {pre_id, status};
+		String[] patterns = {"\\b\\d{8}\\b","\\b\\d{1}\\b"};
+		
+		if((Integer) session.getAttribute("u_level") > 3)
 			resp.sendRedirect("");
 		
 		else {
@@ -72,24 +77,14 @@ public class EditProductbatchServlet extends HttpServlet {
 				try {
 					int rs = -1;
 
-					rs = con.doSqlUpdate("UPDATE prescription SET pre_name = '"+pre_name+"' WHERE pre_id = " + pre_id);
+					rs = con.doSqlUpdate("UPDATE productbatch SET pre_id = "+pre_id+", status = "+status+" WHERE pb_id = " + pb_id);
 					
 					if(rs > 0)
-						resp.getWriter().write("Recepten med id " + pre_id + " er blevet opdateret, med de nye informationer.");
+						resp.getWriter().write("Produktbatchen med id " + pb_id + " er blevet opdateret med recepten "+pre_id+".");
 					else if(rs != -1)
 						resp.getWriter().write("Kunne ikke kontakte databasen, eller der var en fejl ved opdateringen af data - prøv igen. Fortsætter fejlen, kontakt en voksen.");
 					else
 						resp.getWriter().write("Ukendt fejl opstod. Prøv igen, eller kontakt en voksen.");
-					
-					rs = con.doSqlUpdate("DELETE FROM precomponent WHERE pre_id = " + pre_id);
-					
-					if(rs > 0)
-						for(int i = 0; i < components.length; i++) {
-							rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+pre_id+", "+components[i]+", "+nettos[i]+", "+tolerance[i]+")");
-							
-							if(rs > 0)
-								continue;
-						}
 					
 				} catch (SQLException e) {
 					e.printStackTrace();

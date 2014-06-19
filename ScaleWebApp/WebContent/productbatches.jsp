@@ -74,11 +74,47 @@
 			"EditProductbatchServlet",
 			{pb_id:id},
 			function(response) {
-				alert(response);
+				if(response == "||na||")
+					alert("Kan ikke redigere produktbatches der er under produktion eller afsluttet.");
+				else {
+					var pbInfo = response.split("||");
+				
+					$("form#productBatchEditForm input[name='pb_id']").val(pbInfo[0]);
+					$("form#productBatchEditForm select[name='pre_id']").val(pbInfo[1]);
+					$("form#productBatchEditForm select[name='status']").val(pbInfo[2]);
+					
+					$("div#productBatchEdit").fadeIn("fast");
+				}
 			},
 			"html"
 		);
 	});
+	
+	$("input[name='editProductBatchSub']").click(function(e) {
+		var pbid = $("form#productBatchEditForm input[name='pb_id']").val();
+		var preid = $("form#productBatchEditForm select[name='pre_id']").val();
+		var sts = $("form#productBatchEditForm select[name='status']").val();
+		
+		$.post(
+			"EditProductbatchServlet",
+			{pb_id:pbid, pre_id:preid,status:sts},
+			function(response) {
+				alert(response);
+				
+				$("#container").fadeOut('fast', function() {
+					$.get(
+						"productbatches.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+
 </script>
 <h1>produktbatches</h1>
 <div title="productBatchCreate" class="actionBtn" style="width: 160px">opret produktbatch</div>
@@ -190,7 +226,7 @@
         <table>
         	<tr>
             	<td><label for="pb_id">ProduktBatch Id</label></td>
-                <td><input id="pb_id" name="pb_id" type="text" maxlength="8" value="" /></td>
+                <td><input id="pb_id" name="pb_id" type="text" maxlength="8" disabled="disabled" value="" /></td>
             </tr>
             <tr>
                 <td><label for="pre_id">Vælg recept</label></td>
@@ -217,6 +253,16 @@
                     	%>
                     </select>
                 </td>
+            </tr>
+            <tr>
+            	<td><label for="status">Vælg status</label></td>
+            	<td>
+            		<select name="status">
+            			<option value="0">Oprettet</option>
+            			<option value="1">Under produktion</option>
+            			<option value="2">Afsluttet</option>
+            		</select>
+            	</td>
             </tr>
             <tr>
             	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="editProductBatchSub" value="Opdater" /></td>
