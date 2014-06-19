@@ -42,8 +42,9 @@ public class CreateProductbatchServlet extends HttpServlet {
 				
 				try {
 					con.doSqlUpdate("INSERT INTO productbatch VALUES('"+ pb_id + "', '0', '" + pre_id + "')");
+					
+					resp.getWriter().write("Oprettede produktbatch med id " + pb_id + ", ud fra recepten " + pre_id + ".");
 				}
-
 				catch (Exception e) { 
 					e.printStackTrace();
 				}

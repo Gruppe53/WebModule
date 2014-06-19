@@ -48,7 +48,6 @@
 	});
 	
 	$("input[name='createProductBatchSub']").click(function(e) {
-		alert("Under udvikling");
 		var id = $("input[name='pb_id']").val();
 		var preId = $("select[name='pre_id']").val();
 		
@@ -56,6 +55,8 @@
 				"CreateProductbatchServlet",
 				{pb_id:id, pre_id:preId},
 				function(response) {
+					alert(response);
+					
 					$("#container").fadeOut("fast", function() {
 						$.get(
 							"productbatches.jsp",

@@ -60,6 +60,8 @@
 			"CreateMaterialbatchServlet",
 			{mb_id:id, mb_amount:amount, m_id:mid},
 			function(response) {
+				alert(response);
+				
 				$("#container").fadeOut("fast", function() {
 					$.get(
 						"materials.jsp", //TODO check here if right '.jsp' ?
@@ -69,24 +71,6 @@
 						"html"
 					);
 				});
-				
-				if(response.substring(1,1) == "S") {
-					$("input[name='mb_id']").val("");
-					$("input[name='mb_name']").val("");
-					$("select[name='m_id']").val("");
-					
-					var display = $("#" + showDiv).css("display");
-					
-					if(display == "none")
-						$("#" + showDiv).fadeIn("fast");
-					else if(display == "block")
-						$("#" + showDiv).fadeOut("fast");
-					
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
-				else {
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
 			},
 			"html"
 		);
