@@ -30,7 +30,7 @@ public class EditUserServlet extends HttpServlet {
 		else {
 			String u_id = req.getParameter("u_id");
 
-			DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+			DBAccess con = new DBAccess();
 			
 			try {
 				ResultSet rs = con.doSqlQuery("SELECT * FROM user WHERE u_id = " + u_id);
@@ -73,7 +73,7 @@ public class EditUserServlet extends HttpServlet {
 		
 		else {
 			if(checkVals(strs, patterns)) {
-				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				DBAccess con = new DBAccess();
 				
 				try {
 					int rs = -1;

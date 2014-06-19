@@ -13,12 +13,14 @@ public class DBAccess {
 	private String DBUserName;
 	private String DBPassword;
 	
-	public DBAccess(String DBHost, int DBPort, String DBDatabase, String DBUserName, String DBPassword) {
-		this.DBHost = DBHost;
-		this.DBPort = DBPort;
-		this.DBDatabase = DBDatabase;
-		this.DBUserName = DBUserName;
-		this.DBPassword = DBPassword;
+	public DBAccess() {
+		DBInfo Info = new DBInfo();
+		
+		this.DBHost = Info.getDBHost();
+		this.DBPort = Info.getDBPort();
+		this.DBDatabase = Info.getDBDatabase();
+		this.DBUserName = Info.getDBUserName();
+		this.DBPassword = Info.getDBPassword();
 	}
 	
 	public ResultSet doSqlQuery(String query) throws Exception, SQLException {

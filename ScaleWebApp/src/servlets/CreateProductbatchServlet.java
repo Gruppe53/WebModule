@@ -38,7 +38,7 @@ public class CreateProductbatchServlet extends HttpServlet {
 			};
 			
 			if(checkVals(strs, patterns)) {
-				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				DBAccess con = new DBAccess();
 				
 				try {
 					con.doSqlUpdate("INSERT INTO productbatch VALUES('"+ pb_id + "', '0', '" + pre_id + "')");

@@ -40,7 +40,7 @@ public class CreateMaterialbatchServlet extends HttpServlet {
 			};
 
 			if(checkVals(strs, patterns)){
-				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				DBAccess con = new DBAccess();
 
 				try{
 					con.doSqlUpdate("INSERT INTO matbatch VALUES('" + mb_id +"', '" + m_id +"', '" + amount + "')");

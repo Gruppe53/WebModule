@@ -7,7 +7,7 @@ public class Test {
 	private static ResultSet test;
 	
 	public static void main(String[] args) throws SQLException, Exception {
-		db = new DBAccess("72.13.93.206", 3307, "gruppe55", "gruppe55", "55gruppe");
+		db = new DBAccess();
 		
 		System.out.println("--- INSERT ---");
 		try {

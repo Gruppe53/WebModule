@@ -1,23 +1,24 @@
 package database;
 
 public class DBInfo {
-	public String DBHost;
-	public int DBPort;
-	public String DBDatabase;
-	public String DBUserName;
-	public String DBPassword;
+	private String DBHost;
+	private int DBPort;
+	private String DBDatabase;
+	private String DBUserName;
+	private String DBPassword;
+	final int whichserver = 1;
 
 	public DBInfo() {
-		int whichserver = 1; 
+		 
 
-		if (whichserver == 1){
+		if (this.whichserver == 1){
 			this.DBHost = "localhost";
 			this.DBPort = 3306;
 			this.DBDatabase = "gruppe55";
 			this.DBUserName = "root";
 			this.DBPassword = "";
 		}
-		if (whichserver == 2){
+		if (this.whichserver == 2){
 			this.DBHost = "72.13.93.206";
 			this.DBPort = 3307;
 			this.DBDatabase = "gruppe55";

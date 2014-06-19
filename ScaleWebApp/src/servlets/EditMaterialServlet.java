@@ -30,7 +30,7 @@ public class EditMaterialServlet extends HttpServlet {
 		else {
 			String m_id = req.getParameter("m_id");
 
-			DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+			DBAccess con = new DBAccess();
 			
 			try {
 				ResultSet rs = con.doSqlQuery("SELECT * FROM materials WHERE m_id = " + m_id);
@@ -64,7 +64,7 @@ public class EditMaterialServlet extends HttpServlet {
 		else {
 			
 			if(checkVals(strs, patterns)) {
-				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				DBAccess con = new DBAccess();
 				
 				try {
 					int rs = -1;

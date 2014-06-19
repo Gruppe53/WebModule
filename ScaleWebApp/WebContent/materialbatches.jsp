@@ -89,7 +89,7 @@
 			<td style="width: 6%;"></td>
 		</tr>
 		<%
-			DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+			DBAccess con = new DBAccess();
 			ResultSet rs = con.doSqlQuery("SELECT * FROM matbatch");
 	
 			try {

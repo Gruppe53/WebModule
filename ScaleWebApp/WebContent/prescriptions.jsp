@@ -5,7 +5,7 @@
 		out.println("document.location = ''");
 	}
 	
-	DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+	DBAccess con = new DBAccess();
 	ResultSet rs = null;
 	%>
 	

@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		ResultSet rs = null;
 		
 		try {
-			con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+			con = new DBAccess();
 			rs = con.doSqlQuery("SELECT * FROM user WHERE u_id = " + u_id);
 		}
 		catch (Exception e) {

@@ -40,7 +40,7 @@ public class CreateMaterialServlet extends HttpServlet {
 			};
 			
 			if(checkVals(strs, patterns)) {
-				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+				DBAccess con = new DBAccess();
 				
 				try {
 					int rs = con.doSqlUpdate("INSERT INTO materials VALUES (" + m_id + ",'" + m_name + "','" + s_name + "')");

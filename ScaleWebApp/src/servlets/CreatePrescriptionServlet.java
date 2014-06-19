@@ -26,7 +26,7 @@ public class CreatePrescriptionServlet extends HttpServlet {
 		String[] nettos = req.getParameterValues("nettos[]");
 		String[] tolerance = req.getParameterValues("tolerance[]");
 		
-		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
+		DBAccess con = new DBAccess();
 		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");
