@@ -16,24 +16,48 @@
 			$("#" + showDiv).fadeIn("fast");
 		else if(display == "block")
 			$("#" + showDiv).fadeOut("fast");
-		
-		if(showDiv == "userEdit") {
-			// TODO
-		}
 	});
 	
-	$("input[name='createUserSub']").click(function(e) {
-		var id = $("input[name='u_id']").val();
-		var name = $("input[name='u_name']").val();
-		var cpr = $("input[name='u_cprf']").val() + $("input[name='u_cprl']").val();
-		var password_x = $("input[name='password']").val();
-		var password_y = $("input[name='passwordrepeat']").val();
-		var level = $("select[name='u_level']").val();
+	$("img[name*='editUserId']").click(function(e) {
+		var id = this.getAttribute("name").substring(10);
+		
+		$.get(
+			"EditUserServlet",
+			{u_id:id},
+			function(response) {
+				//rs.getInt("u_id")+"||"+rs.getString("u_name")+"||"+rs.getString("cpr")+"||"+rs.getInt("u_level")
+				var userInfo = response.split("||");
+				
+				$("form#userEditForm input[name='u_id']").val(userInfo[0]);
+				$("form#userEditForm input[name='u_name']").val(userInfo[1]);
+				
+				var cprf = userInfo[2].substring(0, 6);
+				var cprl = userInfo[2].substring(6);
+				
+				$("form#userEditForm input[id='u_cprf']").val(cprf);
+				$("form#userEditForm input[id='u_cprl']").val(cprl);
+				$("form#userEditForm select[name='u_level']").val(userInfo[3]);
+				
+				$("div#userEdit").fadeIn("fast");
+			},
+			"html"
+		);
+	});
+	
+	$("input[name='editUserSub']").click(function(e) {
+		var id = $("form#userEditForm input[name='u_id']").val();
+		var name = $("form#userEditForm input[name='u_name']").val();
+		var cpr = $("form#userEditForm input[id='u_cprf']").val() + $("form#userEditForm input[id='u_cprl']").val();;
+		var lvl = $("form#userEditForm select[name='u_level']").val();
+		
+		var pass = $("form#userEditForm select[name='password']").val();
+		var passr = $("form#userEditForm select[name='passwordrepeat']").val();
 		
 		$.post(
-			"CreateUserServlet",
-			{u_id:id, u_name:name, u_cpr:cpr, password:password_x, passwordrepeat:password_y, u_level:level},
+			"EditUserServlet",
+			{u_id:id, u_name:name, u_cpr:cpr, password:pass, passwordrepeat:passr, u_level:lvl},
 			function(response) {
+				alert(response);
 				$('#container').fadeOut('fast', function() {
 					$.get(
 						"users.jsp",
@@ -43,28 +67,34 @@
 						"html"
 					);
 				});
+			},
+			"html"
+		);
+	});
+	
+	$("input[name='createUserSub']").click(function(e) {
+		var id = $("#userCreateForm input[name='u_id']").val();
+		var name = $("#userCreateForm input[name='u_name']").val();
+		var cpr = $("#userCreateForm input[name='u_cprf']").val() + $("input[name='u_cprl']").val();
+		var password_x = $("#userCreateForm input[name='password']").val();
+		var password_y = $("#userCreateForm input[name='passwordrepeat']").val();
+		var level = $("#userCreateForm select[name='u_level']").val();
+		
+		$.post(
+			"CreateUserServlet",
+			{u_id:id, u_name:name, u_cpr:cpr, password:password_x, passwordrepeat:password_y, u_level:level},
+			function(response) {
+				alert(response);
 				
-				if(response.substring(1,1) == "S") {
-					$("input[name='u_id']").val("");
-					$("input[name='u_name']").val("");
-					$("input[name='u_cprf']").val("");
-					$("input[name='u_cprl']").val("");
-					$("input[name='password']").val("");
-					$("input[name='passwordrepeat']").val("");
-					$("select[name='u_level']").val("");
-					
-					var display = $("#" + showDiv).css("display");
-					
-					if(display == "none")
-						$("#" + showDiv).fadeIn("fast");
-					else if(display == "block")
-						$("#" + showDiv).fadeOut("fast");
-					
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
-				else {
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"users.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
 			},
 			"html"
 		);
@@ -205,7 +235,7 @@
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= userStr %></td>
-				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 						<%
 					}
@@ -216,7 +246,7 @@
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= userStr %></td>
-				            <td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 				        <%
 					}
@@ -308,14 +338,14 @@
 </div>
 <div id="userEdit" style="display: none;">
 	<h2>rediger bruger</h2>
-	<form action="" method="post">
+	<form id="userEditForm" method="post">
         <table>
         	<tr>
             	<td>
                 	<label for="u_id">Bruger id</label>
                 </td>
                 <td>
-                	<input id="u_id" name="u_id" type="text" maxlength="8" value="bsd3451" disabled="disabled" />
+                	<input id="u_id" name="u_id" type="text" maxlength="8" value="" disabled="disabled" />
 				</td>
             </tr>
             <tr>
@@ -323,7 +353,7 @@
                 	<label for="u_name">Navn</label>
                 </td>
                 <td>
-          			<input id="u_name" name="u_name" type="text" maxlength="100" value="Boris Stymanowzky Dimitriscz" />
+          			<input id="u_name" name="u_name" type="text" maxlength="100" value="" />
 				</td>
             </tr>
             <tr>
@@ -331,8 +361,8 @@
                 	<label for="u_cprf">CPR</label>
                 </td>
                 <td>
-            		<input id="u_cprf" name="ucpr" type="text" maxlength="6" style="width: 53px; margin-left: 2px;" value="120354" /> - 
-           			<input id="u_cprl" name="ucpr" type="text" maxlength="4" style="width: 30px;" value="3245" />
+            		<input id="u_cprf" name="ucpr" type="text" maxlength="6" style="width: 53px; margin-left: 2px;" value="" /> - 
+           			<input id="u_cprl" name="ucpr" type="text" maxlength="4" style="width: 30px;" value="" />
 				</td>
             </tr>
             <tr>
@@ -357,10 +387,10 @@
                 </td>
                 <td>
                     <select id="u_level" name="u_level">
-                        <option value="admin" selected="selected">Administrator</option>
-                        <option value="farmaceut">Farmaceut</option>
-                        <option value="værkfører">Værkfører</option>
-                        <option value="operatør">Operatør</option>
+                        <option value="1">Administrator</option>
+                        <option value="2">Farmaceut</option>
+                        <option value="3">Værkfører</option>
+                        <option value="4">Operatør</option>
                     </select>
                 </td>
             </tr>
