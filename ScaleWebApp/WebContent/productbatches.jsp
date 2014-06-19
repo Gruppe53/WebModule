@@ -41,10 +41,6 @@
 			$("#" + showDiv).fadeIn("fast");
 		else if(display == "block")
 			$("#" + showDiv).fadeOut("fast");
-		
-		if(showDiv == "productBatchEdit") {
-			// TODO
-		}
 	});
 	
 	$("input[name='createProductBatchSub']").click(function(e) {
