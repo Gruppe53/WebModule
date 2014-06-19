@@ -25,7 +25,6 @@
 			"EditUserServlet",
 			{u_id:id},
 			function(response) {
-				//rs.getInt("u_id")+"||"+rs.getString("u_name")+"||"+rs.getString("cpr")+"||"+rs.getInt("u_level")
 				var userInfo = response.split("||");
 				
 				$("form#userEditForm input[name='u_id']").val(userInfo[0]);
@@ -47,7 +46,7 @@
 	$("input[name='editUserSub']").click(function(e) {
 		var id = $("form#userEditForm input[name='u_id']").val();
 		var name = $("form#userEditForm input[name='u_name']").val();
-		var cpr = $("form#userEditForm input[id='u_cprf']").val() + $("form#userEditForm input[id='u_cprl']").val();;
+		var cpr = $("form#userEditForm input[id='u_cprf']").val() + $("form#userEditForm input[id='u_cprl']").val();
 		var lvl = $("form#userEditForm select[name='u_level']").val();
 		
 		var pass = $("form#userEditForm select[name='password']").val();

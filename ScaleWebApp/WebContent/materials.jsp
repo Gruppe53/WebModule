@@ -52,6 +52,51 @@
 		}
 	});
 	
+	$("img[name*='editMaterialId']").click(function(e) {
+		var id = this.getAttribute("name").substring(14);
+		
+		$.get(
+			"EditMaterialServlet",
+			{m_id:id},
+			function(response) {
+				var materialInfo = response.split("||");
+				
+				$("form#materialEditForm input[name='m_id']").val(materialInfo[0]);
+				$("form#materialEditForm input[name='m_name']").val(materialInfo[1]);
+				$("form#materialEditForm input[name='supplier']").val(materialInfo[2]);
+				
+				
+				$("div#materialEdit").fadeIn("fast");
+			},
+			"html"
+		);
+	});
+	
+	$("input[name='editMaterialSub']").click(function(e) {
+		var id = $("form#materialEditForm input[name='m_id']").val();
+		var name = $("form#materialEditForm input[name='m_name']").val();
+		var sup = $("form#materialEditForm input[name='supplier']").val();
+		
+		$.post(
+			"EditMaterialServlet",
+			{m_id:id, m_name:name, supplier:sup},
+			function(response) {
+				alert(response);
+				
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"materials.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+	
 	$("input[name='createMaterialSub']").click(function(e) {
 		var id = $("input[name='m_id']").val();
 		var name = $("input[name='m_name']").val();
@@ -119,7 +164,7 @@
 				        	<td><%= rs.getInt("m_id") %></td>
 				            <td><%= rs.getString("m_name") %></td>
 				            <td><%= rs.getString("supplier") %></td>
-				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="reddel" name="<%= rs.getInt("m_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 						<%
 					}
@@ -129,7 +174,7 @@
 				        	<td><%= rs.getInt("m_id") %></td>
 				            <td><%= rs.getString("m_name") %></td>
 				            <td><%= rs.getString("supplier") %></td>
-				            <td style="text-align: center;"><a href=""><img alt="reddel" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="reddel" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="reddel" name="<%= rs.getInt("m_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 				        <%
 					}
@@ -204,14 +249,14 @@
 </div>
 <div id="materialEdit" style="display: none;">
 	<h2>rediger råvare</h2>
-	<form action="" method="post">
+	<form id="materialEditForm" method="post">
         <table>
         	<tr>
             	<td>
                 	<label for="m_id">Råvare id</label>
                 </td>
                 <td>
-                	<input id="m_id" name="m_id" type="text" maxlength="8" value="5434sa" disabled="disabled" />
+                	<input id="m_id" name="m_id" type="text" maxlength="8" value="" disabled="disabled" />
 				</td>
             </tr>
             <tr>
@@ -219,26 +264,17 @@
                 	<label for="m_name">Navn</label>
                 </td>
                 <td>
-          			<input id="m_name" name="m_name" type="text" maxlength="100" value="Salt" />
+          			<input id="m_name" name="m_name" type="text" maxlength="100" value="" />
 				</td>
             </tr>
             <tr>
             	<td style="vertical-align: top; text-align: left;">
                 	<label for="supplier">Leverandør</label>
                 </td>
-                <td>
-                    <select name="supplier">
-                        <option disabled="disabled">Leverandør...</option>
-                        <option value="Alternova">Alternova</option>
-                        <option value="Bents Biokemi">Bents Biokemi</option>
-                        <option value="Takeda Pharma">Takeda Pharma</option>
-                        <option value="GlaxoSmithKline Consumer Healthcare">GlaxoSmithKline Consumer Healthcare)</option>
-                        <option selected="selected" value="GC Rieber Salt A/S">GC Rieber Salt A/S</option>
-                    </select>
-                </td>
+                <td><input id="supplier" name="supplier" type="text" maxlength="100" value="" /></td>
             </tr>
             <tr>
-            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="submit" name="createMaterialSub" value="Opdater" /></td>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="editMaterialSub" value="Opdater" /></td>
             </tr>
         </table>
 	</form>
