@@ -124,4 +124,14 @@
     <servlet-name>EditProductbatchServlet</servlet-name>
     <url-pattern>/EditProductbatchServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditMaterialbatchServlet</display-name>
+    <servlet-name>EditMaterialbatchServlet</servlet-name>
+    <servlet-class>servlets.EditMaterialbatchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditMaterialbatchServlet</servlet-name>
+    <url-pattern>/EditMaterialbatchServlet/*</url-pattern>
+  </servlet-mapping>
 </web-app>

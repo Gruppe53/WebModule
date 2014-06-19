@@ -14,10 +14,6 @@
 			$("#" + showDiv).fadeIn("fast");
 		else if(display == "block")
 			$("#" + showDiv).fadeOut("fast");
-		
-		if(showDiv == "materialBatchEdit") {
-			// TODO
-		}
 	});
 	
 	$("#materialBatchCreateForm").validate({
@@ -64,9 +60,53 @@
 				
 				$("#container").fadeOut("fast", function() {
 					$.get(
-						"materials.jsp", //TODO check here if right '.jsp' ?
+						"materials.jsp",
 						function(data) {
 							$("#container").html(data).fadeIn("fast");
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+	
+	$("img[name*='editMaterialbatchId']").click(function(e) {
+		var id = this.getAttribute("name").substring(19);
+		
+		$.get(
+			"EditMaterialbatchServlet",
+			{mb_id:id},
+			function(response) {
+				var mbinfo = response.split("||");
+				
+				$("form#materialBatchEditForm input[name='mb_id']").val(mbinfo[0]);
+				$("form#materialBatchEditForm select[name='m_id']").val(mbinfo[1]);
+				$("form#materialBatchEditForm input[name='mb_amount']").val(mbinfo[2]);
+				
+				$("div#materialBatchEdit").fadeIn("fast");
+			},
+			"html"
+		);
+	});
+	
+	$("input[name='editMaterialbatchSub']").click(function(e) {
+		var mbid = $("form#materialBatchEditForm input[name='mb_id']").val();
+		var mid = $("form#materialBatchEditForm select[name='m_id']").val();
+		var amo = $("form#materialBatchEditForm input[name='mb_amount']").val();
+		
+		$.post(
+			"EditMaterialbatchServlet",
+			{mb_id:mbid, m_id:mid,amount:amo},
+			function(response) {
+				alert(response);
+				
+				$("#container").fadeOut('fast', function() {
+					$.get(
+						"materialbatches.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
 						},
 						"html"
 					);
@@ -102,7 +142,7 @@
 							<td><%= rs.getInt("mb_id") %> </td>
 							<td><%= rs.getInt("m_id") %> </td>
 							<td><%= rs.getInt("amount") + " g" %> </td>
-							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
@@ -112,7 +152,7 @@
 							<td><%= rs.getInt("mb_id") %> </td>
 							<td><%= rs.getInt("m_id") %> </td>
 							<td><%= rs.getInt("amount") + " g"%> </td>
-							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
@@ -170,6 +210,50 @@
 			</tr>
 			<tr>
 				<td style="text-align: right;" colspan="2"><input type="reset" value="Nulstil" /><input name="creatematerialBatchSub" type="button" value="Opret" /></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<div id="materialBatchEdit" style="display: none;">
+	<h2>opret råvarebatch</h2>
+	<form id="materialBatchEditForm" method="post">
+		<table>
+			<tr>
+				<td><label for="mb_id">Råvarebatch ID</label></td>
+				<td><input id="mb_id" name="mb_id" maxlength="8" type="text" value="" disabled="disabled" /></td>
+			</tr>
+			<tr>
+				<td><label for="mb_amount">Mængde</label>
+				<td><input id="mb_amount" name="mb_amount" placeholder="10000000" type="text" maxlength="20"></td>
+			</tr>
+			<tr>
+				<td><label for="m_id">Råvare</label></td>
+            	<td>
+            		<select id="m_id" name="m_id">
+            			<option selected="selected" disabled="disabled">Komponent...</option>
+            			<%
+							rs = con.doSqlQuery("SELECT m_id, m_name FROM materials");
+							
+							try {
+								while(rs.next()) {
+									%>
+									<option value="<%= rs.getInt("m_id") %>"><%= rs.getString("m_name") %> [<%= rs.getInt("m_id") %>]</option>
+									<%
+								}
+							}
+							catch (SQLException e) {
+								e.printStackTrace();
+							}
+							finally {
+								rs.close();
+								con.closeSql();
+							}
+						%>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;" colspan="2"><input type="reset" value="Nulstil" /><input name="editMaterialbatchSub" type="button" value="Opdater" /></td>
 			</tr>
 		</table>
 	</form>

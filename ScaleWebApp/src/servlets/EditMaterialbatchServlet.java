@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import database.DBAccess;
 
-public class EditProductbatchServlet extends HttpServlet {
+public class EditMaterialbatchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EditProductbatchServlet() {
+    public EditMaterialbatchServlet() {
         super();
     }
 
@@ -28,18 +28,15 @@ public class EditProductbatchServlet extends HttpServlet {
 			resp.sendRedirect("");
 		
 		else {
-			String pb_id = req.getParameter("pb_id");
+			String mb_id = req.getParameter("mb_id");
 
 			DBAccess con = new DBAccess();
 			
 			try {
-				ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch WHERE pb_id = " + pb_id + " AND status = 0");
+				ResultSet rs = con.doSqlQuery("SELECT * FROM matbatch WHERE mb_id = " + mb_id);
 				
-				if(!rs.isBeforeFirst())
-					resp.getWriter().write("||na||");
-				else
-					while(rs.next())
-						resp.getWriter().write(rs.getInt("pb_id")+"||"+rs.getString("pre_id")+"||"+rs.getInt("status"));
+				while(rs.next())
+					resp.getWriter().write(rs.getInt("mb_id")+"||"+rs.getString("m_id")+"||"+rs.getDouble("amount"));
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -56,12 +53,12 @@ public class EditProductbatchServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		
-		String pb_id = req.getParameter("pb_id");
-		String pre_id = req.getParameter("pre_id");
-		String status = req.getParameter("status");
+		String mb_id = req.getParameter("mb_id");
+		String m_id = req.getParameter("m_id");
+		String amount = req.getParameter("amount");
 		
-		String[] strs = {pre_id, status};
-		String[] patterns = {"\\b\\d{8}\\b","\\b\\d{1}\\b"};
+		String[] strs = {m_id, amount};
+		String[] patterns = {"\\b\\d{8}\\b","(?:\\d*\\.)?\\d+"};
 		
 		if((Integer) session.getAttribute("u_level") > 3)
 			resp.sendRedirect("");
@@ -73,10 +70,10 @@ public class EditProductbatchServlet extends HttpServlet {
 				try {
 					int rs = -1;
 
-					rs = con.doSqlUpdate("UPDATE productbatch SET pre_id = "+pre_id+", status = "+status+" WHERE pb_id = " + pb_id);
+					rs = con.doSqlUpdate("UPDATE matbatch SET m_id = "+m_id+", amount = "+amount+" WHERE mb_id = " + mb_id);
 					
 					if(rs > 0)
-						resp.getWriter().write("Produktbatchen med id " + pb_id + " er blevet opdateret med recepten "+pre_id+".");
+						resp.getWriter().write("Råvarebatchen med id " + mb_id + " er blevet opdateret med de nye informationer.");
 					else if(rs != -1)
 						resp.getWriter().write("Kunne ikke kontakte databasen, eller der var en fejl ved opdateringen af data - prøv igen. Fortsætter fejlen, kontakt en voksen.");
 					else
