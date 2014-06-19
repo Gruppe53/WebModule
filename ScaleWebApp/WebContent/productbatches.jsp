@@ -66,6 +66,19 @@
 				"html"
 		);
 	});
+	
+	$("img[name*='editProductbatchId']").click(function(e) {
+		var id = this.getAttribute("name").substring(18);
+		
+		$.get(
+			"EditProductbatchServlet",
+			{pb_id:id},
+			function(response) {
+				alert(response);
+			},
+			"html"
+		);
+	});
 </script>
 <h1>produktbatches</h1>
 <div title="productBatchCreate" class="actionBtn" style="width: 160px">opret produktbatch</div>
@@ -101,7 +114,7 @@
 							<td><%= rs.getInt("pb_id") %>	</td>
 							<td><%= statusStr %>	</td>
 							<td><%= rs.getInt("pre_id") %>	</td>
-							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
@@ -111,7 +124,7 @@
 							<td><%= rs.getInt("pb_id") %>	</td>
 							<td><%= statusStr %>	</td>
 							<td><%= rs.getInt("pre_id") %>	</td>
-							<td style="text-align: center;"><a href=""><img alt="edit" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></a> <a href=""><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></a></td>
+							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
@@ -166,6 +179,47 @@
             </tr>
             <tr>
             	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="createProductBatchSub" value="Opret" /></td>
+            	<td></td>
+            </tr>
+        </table>
+	</form>
+</div>
+<div id="productBatchEdit" style="display: none;">
+	<h2>opret produktbatch</h2>
+	<form id="productBatchEditForm" method="post">
+        <table>
+        	<tr>
+            	<td><label for="pb_id">ProduktBatch Id</label></td>
+                <td><input id="pb_id" name="pb_id" type="text" maxlength="8" value="" /></td>
+            </tr>
+            <tr>
+                <td><label for="pre_id">Vælg recept</label></td>
+                <td>
+                    <select id="pre_id" name="pre_id">
+                    	<option selected="selected" disabled="disabled">Recept</option>
+                    	<%
+	                    	rs = con.doSqlQuery("SELECT * FROM prescription");
+                			
+                			try {
+                				while(rs.next()) {
+                					%>
+                					<option value="<%= rs.getInt("pre_id") %>"><%= rs.getString("pre_name") %> [<%= rs.getInt("pre_id") %>]</option>
+                					<%
+                				}
+                			}
+                			catch (SQLException e) {
+                				e.printStackTrace();
+                			}
+                			finally {
+                				rs.close();
+                				con.closeSql();
+                			}
+                    	%>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            	<td align="right" colspan="2"><input type="reset" value="Nulstil" /><input type="button" name="editProductBatchSub" value="Opdater" /></td>
             	<td></td>
             </tr>
         </table>

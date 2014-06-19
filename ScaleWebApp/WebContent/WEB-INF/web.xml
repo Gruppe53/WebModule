@@ -114,4 +114,14 @@
     <servlet-name>EditPrescriptionServlet</servlet-name>
     <url-pattern>/EditPrescriptionServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditProductbatchServlet</display-name>
+    <servlet-name>EditProductbatchServlet</servlet-name>
+    <servlet-class>servlets.EditProductbatchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditProductbatchServlet</servlet-name>
+    <url-pattern>/EditProductbatchServlet/*</url-pattern>
+  </servlet-mapping>
 </web-app>
