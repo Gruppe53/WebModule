@@ -35,12 +35,23 @@ public class CreatePrescriptionServlet extends HttpServlet {
 			try {
 				int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
 				if(rs > 0) {
-					for(int i = 0; i < components.length; i++) {
+					for(int i = 0; i < (components.length - 1); i++) {
 						rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+pre_id+", "+components[i]+", "+nettos[i]+", "+tolerance[i]+")");
 						
 						if(rs > 0)
 							continue;
 					}
+					
+					String compsStr = "";
+					
+					for(int i = 0; i < (components.length - 1); i++)
+						if(i == 0)
+							compsStr = components[i];
+						else
+							compsStr += ", " + components[i];
+						
+					
+					resp.getWriter().write("Oprettede en recept med id "+pre_id+" og navn "+pre_name+", som indeholder komponenterne "+compsStr);
 				}
 			}
 			catch (Exception e) {

@@ -223,6 +223,48 @@
 		);
 	});
 	
+	$("input[name='editPrescriptionSub']").click(function(e) {
+		var id = $("form#prescriptionEditForm input[name='pre_id']").val();
+		var name = $("form#prescriptionEditForm input[name='pre_name']").val();
+		var comps = [];
+		var nets = [];
+		var tols = [];
+		
+		$("form#prescriptionEditForm select[name='component']").each(function(index) {
+			if($(this).val() != null || $(this).val() != "")
+				comps.push($(this).val());
+		});
+		
+		$("form#prescriptionEditForm input[name='netto']").each(function(index) {
+			if($(this).val() != null || $(this).val() != "")
+				nets.push($(this).val());
+		});
+		
+		$("form#prescriptionEditForm input[name='tolerance']").each(function(index) {
+			if($(this).val() != null || $(this).val() != "")
+				tols.push($(this).val());
+		});
+		
+		$.post(
+			"EditPrescriptionServlet",
+			{pre_id:id, pre_name:name, 'components[]':comps, 'nettos[]':nets, 'tolerance[]':tols},
+			function(response) {
+				alert(response);
+				
+				$("#container").fadeOut('fast', function() {
+					$.get(
+						"prescriptions.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+	
 </script>
 <h1>recepter</h1>
 <div title="prescriptionCreate" class="actionBtn" style="width: 120px">opret recept</div>
