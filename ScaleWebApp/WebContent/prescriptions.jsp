@@ -51,6 +51,8 @@
 									%>
 									+ "</select>"
 								+ "</td>"
+								+ "<td><input id=\"netto\" name=\"netto\" type=\"text\" placeholder=\"1234\"/></td>"
+								+ "<td><input id=\"tolerance\" name=\"tolerance\" type=\"text\" placeholder=\"12.34\"/></td>"
 								+ "<td>"
 									+ " <span class=\"delComponent\" style=\"cursor: pointer;\">x</span>"
 								+ "</td>"
@@ -252,7 +254,9 @@
 									%>
                                 </select>
                             </td>
-                            <td></td>
+                            <td><input id="netto" name="netto" type="text" placeholder="1234"/></td>
+							<td><input id="tolerance" name="tolerance" type="text" placeholder="12.34"/></td>
+							<td></td>
                         </tr>
                     </table>
                 </td>
@@ -299,29 +303,6 @@
                                 </select>
                             </td>
                             <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select name="editComponent">
-                                    <option disabled="disabled">Komponent...</option>
-                                    <option value="5434sa">Salt (5434sa)</option>
-                                    <option value="2154pa">Paracetamol (2154pa)</option>
-                                    <option value="9885ac">Acetylsalicylsyre (9885ac)</option>
-                                    <option selected="selected" value="543534">Chlorid</option>
-                                </select>
-                            </td>
-                            <td><span class="delComponent" style="cursor: pointer"> x</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select name="editComponent">
-                                    <option selected="selected" disabled="disabled">Komponent...</option>
-                                    <option value="5434sa">Salt (5434sa)</option>
-                                    <option value="2154pa">Paracetamol (2154pa)</option>
-                                    <option value="9885ac">Acetylsalicylsyre (9885ac)</option>
-                                </select>
-                            </td>
-                            <td><span class="delComponent" style="cursor: pointer"> x</span></td>
                         </tr>
                     </table>
                 </td>

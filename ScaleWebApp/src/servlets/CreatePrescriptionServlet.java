@@ -23,6 +23,8 @@ public class CreatePrescriptionServlet extends HttpServlet {
 		String pre_id = req.getParameter("pre_id");
 		String pre_name = req.getParameter("pre_name");
 		String[] components = req.getParameterValues("components[]");
+		String[] nettos = req.getParameterValues("nettos[]");
+		String[] tolerance = req.getParameterValues("tolerance[]");
 		
 		DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 		
@@ -33,8 +35,8 @@ public class CreatePrescriptionServlet extends HttpServlet {
 			try {
 				int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
 				if(rs > 0) {
-					for(String comp : components) {
-						rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+ pre_id + ", " + comp + ", 0, 0)");
+					for(int i = 0; i < components.length; i++) {
+						rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+pre_id+", "+components[i]+", "+nettos[i]+", "+tolerance[i]+")");
 						
 						if(rs > 0)
 							continue;

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import database.DBAccess;
 
-public class EditMaterialServlet extends HttpServlet {
+public class EditPrescriptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EditMaterialServlet() {
+    public EditPrescriptionServlet() {
         super();
     }
 
@@ -28,15 +28,15 @@ public class EditMaterialServlet extends HttpServlet {
 			resp.sendRedirect("");
 		
 		else {
-			String m_id = req.getParameter("m_id");
+			String pre_id = req.getParameter("pre_id");
 
 			DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 			
 			try {
-				ResultSet rs = con.doSqlQuery("SELECT * FROM materials WHERE m_id = " + m_id);
+				ResultSet rs = con.doSqlQuery("SELECT * FROM materials WHERE pre_id = " + pre_id);
 				
 				while(rs.next())
-					resp.getWriter().write(rs.getInt("m_id")+"||"+rs.getString("m_name")+"||"+rs.getString("supplier"));
+					resp.getWriter().write(rs.getInt("pre_id")+"||"+rs.getString("pre_name")+"||"+rs.getString("supplier"));
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -51,32 +51,43 @@ public class EditMaterialServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		
-		String m_id = req.getParameter("m_id");
-		String m_name = req.getParameter("m_name");
-		String supplier = req.getParameter("supplier");
+		String pre_id = req.getParameter("pre_id");
+		String pre_name = req.getParameter("pre_name");
+		String[] components = req.getParameterValues("components[]");
+		String[] nettos = req.getParameterValues("nettos[]");
+		String[] tolerance = req.getParameterValues("tolerance[]");
 		
-		String[] strs = {m_name};
+		String[] strs = {pre_name};
 		String[] patterns = {"([a-zA-Z]+[^0-9]*)"};
 		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");
 		
 		else {
-			
 			if(checkVals(strs, patterns)) {
 				DBAccess con = new DBAccess("localhost", 3306, "gruppe55", "root", "");
 				
 				try {
 					int rs = -1;
 
-					rs = con.doSqlUpdate("UPDATE materials SET m_name = '"+m_name+"', supplier = '"+supplier+"' WHERE m_id = " + m_id);
+					rs = con.doSqlUpdate("UPDATE prescription SET pre_name = '"+pre_name+"' WHERE pre_id = " + pre_id);
 					
 					if(rs > 0)
-						resp.getWriter().write("Råvaren med id " + m_id + " er blevet opdateret, med de nye informationer.");
+						resp.getWriter().write("Recepten med id " + pre_id + " er blevet opdateret, med de nye informationer.");
 					else if(rs != -1)
 						resp.getWriter().write("Kunne ikke kontakte databasen, eller der var en fejl ved opdateringen af data - prøv igen. Fortsætter fejlen, kontakt en voksen.");
 					else
 						resp.getWriter().write("Ukendt fejl opstod. Prøv igen, eller kontakt en voksen.");
+					
+					rs = con.doSqlUpdate("DELETE FROM precomponent WHERE pre_id = " + pre_id);
+					
+					if(rs > 0)
+						for(int i = 0; i < components.length; i++) {
+							rs = con.doSqlUpdate("INSERT INTO precomponent VALUES("+pre_id+", "+components[i]+", "+nettos[i]+", "+tolerance[i]+")");
+							
+							if(rs > 0)
+								continue;
+						}
 					
 				} catch (SQLException e) {
 					e.printStackTrace();

@@ -104,4 +104,14 @@
     <servlet-name>EditMaterialServlet</servlet-name>
     <url-pattern>/EditMaterialServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditPrescriptionServlet</display-name>
+    <servlet-name>EditPrescriptionServlet</servlet-name>
+    <servlet-class>servlets.EditPrescriptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditPrescriptionServlet</servlet-name>
+    <url-pattern>/EditPrescriptionServlet/*</url-pattern>
+  </servlet-mapping>
 </web-app>
