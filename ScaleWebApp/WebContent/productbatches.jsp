@@ -126,11 +126,12 @@
 			<td><strong>id</strong></td>
 			<td><strong>status</strong></td>
 			<td><strong>recept id</strong></td>
+			<td><strong>recept navn</strong></td>
 			<td style="width: 6%;"></td>
 		</tr>
 		<%
 			DBAccess con = new DBAccess();
-			ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch NATURAL JOIN prescription");
 			
 			try {
 				int i = 0;
@@ -147,20 +148,22 @@
 					if (i % 2 == 0) {
 						%>
 						<tr class="tableHover">
-							<td><%= rs.getInt("pb_id") %>	</td>
-							<td><%= statusStr %>	</td>
-							<td><%= rs.getInt("pre_id") %>	</td>
-							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+							<td><%= rs.getInt("pb_id") %></td>
+							<td><%= statusStr %></td>
+							<td><%= rs.getInt("pre_id") %></td>
+							<td><%= rs.getString("pre_name") %></td>
+							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
 					else {
 						%>
 						<tr>
-							<td><%= rs.getInt("pb_id") %>	</td>
-							<td><%= statusStr %>	</td>
-							<td><%= rs.getInt("pre_id") %>	</td>
-							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+							<td><%= rs.getInt("pb_id") %></td>
+							<td><%= statusStr %></td>
+							<td><%= rs.getInt("pre_id") %></td>
+							<td><%= rs.getString("pre_name") %></td>
+							<td style="text-align: center;"><img alt="edit" name="editProductbatchId<%= rs.getInt("pb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}

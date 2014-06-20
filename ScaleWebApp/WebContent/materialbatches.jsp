@@ -125,12 +125,13 @@
 		<tr>
 			<td><strong>id</strong></td>
 			<td><strong>råvare id</strong></td>
+			<td><strong>råvare navn</strong></td>
 			<td><strong>mængde</strong></td>
 			<td style="width: 6%;"></td>
 		</tr>
 		<%
 			DBAccess con = new DBAccess();
-			ResultSet rs = con.doSqlQuery("SELECT * FROM matbatch");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM matbatch NATURAL JOIN materials");
 	
 			try {
 				int i = 0;
@@ -139,10 +140,11 @@
 					if(i % 2 == 0) {
 						%>
 						<tr class="tableHover">
-							<td><%= rs.getInt("mb_id") %> </td>
-							<td><%= rs.getInt("m_id") %> </td>
+							<td><%= rs.getInt("mb_id") %></td>
+							<td><%= rs.getInt("m_id") %></td>
+							<td><%= rs.getString("m_name") %></td>
 							<td><%= rs.getInt("amount") + " g" %> </td>
-							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}
@@ -151,8 +153,9 @@
 						<tr>
 							<td><%= rs.getInt("mb_id") %> </td>
 							<td><%= rs.getInt("m_id") %> </td>
+							<td><%= rs.getString("m_name") %></td>
 							<td><%= rs.getInt("amount") + " g"%> </td>
-							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+							<td style="text-align: center;"><img alt="editMaterialbatchId<%= rs.getInt("mb_id") %>" name="editMaterialbatchId<%= rs.getInt("mb_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 						</tr>
 						<%
 					}

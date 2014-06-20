@@ -144,7 +144,7 @@
 				        	<td><%= rs.getInt("m_id") %></td>
 				            <td><%= rs.getString("m_name") %></td>
 				            <td><%= rs.getString("supplier") %></td>
-				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="reddel" name="<%= rs.getInt("m_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 						<%
 					}
@@ -154,7 +154,7 @@
 				        	<td><%= rs.getInt("m_id") %></td>
 				            <td><%= rs.getString("m_name") %></td>
 				            <td><%= rs.getString("supplier") %></td>
-				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="reddel" name="<%= rs.getInt("m_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+				            <td style="text-align: center;"><img alt="reddel" name="editMaterialId<%= rs.getInt("m_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 				        <%
 					}

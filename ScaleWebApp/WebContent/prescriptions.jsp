@@ -309,7 +309,7 @@
         					}
         					%>
         					<td><%= comps %></td>
-        					<td style="text-align: center;"><img alt="editPrescriptionId<%= rs.getInt("pre_id") %>" name="editPrescriptionId<%= rs.getInt("pre_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+        					<td style="text-align: center;"><img alt="editPrescriptionId<%= rs.getInt("pre_id") %>" name="editPrescriptionId<%= rs.getInt("pre_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
         				</tr>
         				<% 
         			}
@@ -335,7 +335,7 @@
         					}
         					%>
         					<td><%= comps %></td>
-        					<td style="text-align: center;"><img alt="editPrescriptionId<%= rs.getInt("pre_id") %>" name="editPrescriptionId<%= rs.getInt("pre_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+        					<td style="text-align: center;"><img alt="editPrescriptionId<%= rs.getInt("pre_id") %>" name="editPrescriptionId<%= rs.getInt("pre_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /></td>
         				</tr>
         				<%
         			}
