@@ -69,7 +69,13 @@
 	</script>
 </head>
 <%
-	if(session.isNew()) {
+	try {
+		if((Integer) session.getAttribute("u_level") == -1) {
+			session.setAttribute("u_id", new Integer(-1));
+			session.setAttribute("u_name", new String(""));
+			session.setAttribute("u_level", new Integer(5));
+		}
+	} catch (NullPointerException e) {
 		session.setAttribute("u_id", new Integer(-1));
 		session.setAttribute("u_name", new String(""));
 		session.setAttribute("u_level", new Integer(5));

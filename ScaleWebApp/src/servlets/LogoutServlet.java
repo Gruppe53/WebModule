@@ -21,7 +21,7 @@ public class LogoutServlet extends HttpServlet {
 		if((Integer) session.getAttribute("u_id") != -1) {
 			session.removeAttribute("u_id");
 			session.removeAttribute("u_name");
-			session.removeAttribute("u_level");
+			session.setAttribute("u_level", new Integer(-1));
 			
 			resp.sendRedirect("");
 		}
