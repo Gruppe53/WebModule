@@ -304,10 +304,12 @@
 				required: "Indtast password igen.",
 				equalTo: "Matcher ikke det forrige password."
 			},
-			u_level: {
-				required: "Vælg et brugerniveau."
-			}
-	});
+		
+			u_level : {
+				required : "Vælg et brugerniveau."
+					}
+				}
+		});
 </script>
 <h1>brugere</h1>
 <div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div title="inactiveUserList" class="actionBtn" style="width: 145px;">inaktive brugere</div>
