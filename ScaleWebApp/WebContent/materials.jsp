@@ -17,6 +17,27 @@
 			$("#" + showDiv).fadeOut("fast");
 	});
 	
+	$("#materialEditForm").validate({
+		rules: {
+			m_name: {
+				required: true
+			},
+			s_id: {
+				required: true,
+				number: true
+			}
+		},
+		messages: {
+			m_name: {
+				required: "Indtast et råvarenavn."
+			},
+			s_id: {
+				required: "Vælg en leverandør.",
+				number: "" //TODO What the fuck sker der hvis man ikke skriver præcist rigtigt ?
+			}
+		}
+	})
+	
 	$("#materialCreateForm").validate({
 		rules: {
 			m_id: {

@@ -237,6 +237,77 @@
 			*/
 		}
 	});
+	
+	$("#userEditForm").validate({
+		rules: {		
+			u_name: {
+				required: true,
+				minlength: 4,
+				maxlength: 100,
+				regex: /^([a-zA-Z]+[^0-9]*)$/
+			},
+			u_cprf: {
+				required: true,
+				minlength: 6,
+				maxlength: 6,
+				number: true,
+				regex: /^(0[1-9]|[1-2][0-9]|3[0-1])[.\-/]?(0[1-9]|1[0-2])[.\-/]?([0-9]{2})$/
+				// READ COMMENT IN DROPBOX FOLDER: regexDateComment.txt
+			},
+			u_cprl: {
+				required: true,
+				minlength: 4,
+				maxlength: 4,
+				number: true
+			},
+			password: {
+				required: true,
+				minlength: 8,
+				maxlength: 100,
+				regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+				// Must contain 1 digit, 1 small letter and 1 capital letter
+			},
+			passwordrepeat: {
+				required: true,
+				equalTo: "#password"
+			},
+			u_level: {
+				required: true
+			}
+		},
+		messages: {		
+			u_name: {
+				required: "Indtast brugerens navn.",
+				minlength: "Undgå initialer og des lige, skriv deres fulde navn.",
+				maxlength: "Navne på mere end 100 tegn, kan ikke gemmes i databasen.",
+				regex: "Navne indeholder ikke tal."
+			},
+			u_cprf: {
+				required: "Indtast fødselsdato for brugeren.",
+				number: "Skal være i formatet ddmmåå - brug kun tal.",
+				minlength: "Skal være i formatet ddmmåå - brug f.eks. 05 i stedet for 5.",
+				maxlength: "Skal være i formatet ddmmåå - brug f.eks. 05 i stedet for 5.",
+				regex: "Indtast en gyldig dato."
+			},
+			u_cprl: {
+				required: "Indtast de sidste fire cifre i brugerens CPR-nummer.",
+				minlength: "Der skal indtastes fire cifre.",
+				maxlength: "Der skal indtastes fire cifre.",
+				number: "Brug kun tal."
+			},
+			password: {
+				required: "Indtast et password på minimum 8 bogstaver.",
+				minlength: "Password skal minimum være 8 karaktere langt.",
+				regex: "Mindst 1 lille og stort bogstav, samt 1 tal."
+			},
+			passwordrepeat: {
+				required: "Indtast password igen.",
+				equalTo: "Matcher ikke det forrige password."
+			},
+			u_level: {
+				required: "Vælg et brugerniveau."
+			}
+	});
 </script>
 <h1>brugere</h1>
 <div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div title="inactiveUserList" class="actionBtn" style="width: 145px;">inaktive brugere</div>

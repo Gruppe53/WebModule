@@ -77,7 +77,9 @@ public class EditPrescriptionServlet extends HttpServlet {
 		String[] tolerance = req.getParameterValues("tolerance[]");
 		
 		String[] strs = {pre_name};
-		String[] patterns = {"([a-zA-Z]+[^0-9]*)"};
+		String[] patterns = {
+				"([a-zA-Z]+[^0-9]*)"
+				};
 		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");

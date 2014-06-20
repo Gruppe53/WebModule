@@ -61,7 +61,10 @@ public class EditProductbatchServlet extends HttpServlet {
 		String status = req.getParameter("status");
 		
 		String[] strs = {pre_id, status};
-		String[] patterns = {"\\b\\d{8}\\b","\\b\\d{1}\\b"};
+		String[] patterns = {
+				"\\b\\d{8}\\b",
+				"\\b\\d{1}\\b"
+				};
 		
 		if((Integer) session.getAttribute("u_level") > 3)
 			resp.sendRedirect("");

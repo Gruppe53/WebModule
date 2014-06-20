@@ -16,6 +16,27 @@
 			$("#" + showDiv).fadeOut("fast");
 	});
 	
+	$("#materialBatchEditForm").validate({
+		rules: {
+			mb_amount: {
+				required: true,
+				number:true
+			},
+			m_id: {
+				required: true
+			}
+		},
+		messages:{
+			mb_amount: {
+				required: "Indtast mængden.",
+				number: "Mængden skal være tal."
+			},
+			m_id: {
+				required: "Vælg en recept."
+			}
+		}
+	});
+	
 	$("#materialBatchCreateForm").validate({
 		rules: {
 			mb_id: {

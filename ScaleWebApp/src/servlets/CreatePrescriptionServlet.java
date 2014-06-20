@@ -26,12 +26,21 @@ public class CreatePrescriptionServlet extends HttpServlet {
 		String[] nettos = req.getParameterValues("nettos[]");
 		String[] tolerance = req.getParameterValues("tolerance[]");
 		
+		String[] strs = {pre_id, pre_name};
+		String[] patterns = {
+				"\\b\\d{8}\\b",
+				"([a-zA-Z]+[^0-9]*)"
+				};
+		
 		DBAccess con = new DBAccess();
 		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");
 		
 		else {
+			if (checkVals(strs,  patterns)){
+			
+			
 			try {
 				int rs = con.doSqlUpdate("INSERT INTO prescription VALUES(" + pre_id + ", '" + pre_name + "')");
 				if(rs > 0) {
@@ -57,11 +66,19 @@ public class CreatePrescriptionServlet extends HttpServlet {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			}
 		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
+	}
+	private boolean checkVals(String[] strs, String[] patterns) {
+		for(int i = 0; i < strs.length; i++)
+			if(!(strs[i].matches(patterns[i])))
+				return false;
+		
+		return true;
 	}
 
 }

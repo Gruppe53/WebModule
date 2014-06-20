@@ -55,8 +55,12 @@ public class EditMaterialServlet extends HttpServlet {
 		String m_name = req.getParameter("m_name");
 		String supplier = req.getParameter("supplier");
 		
-		String[] strs = {m_name};
-		String[] patterns = {"([a-zA-Z]+[^0-9]*)"};
+		String[] strs = {m_id, m_name, supplier};
+		String[] patterns = {
+				"\\b\\d{8}\\b",
+				"([a-zA-Z]+[^0-9]*)",
+				"([a-zA-Z]+[^0-9]*)"
+				};
 		
 		if((Integer) session.getAttribute("u_level") > 2)
 			resp.sendRedirect("");

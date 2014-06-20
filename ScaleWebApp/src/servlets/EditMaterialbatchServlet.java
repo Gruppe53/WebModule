@@ -58,7 +58,10 @@ public class EditMaterialbatchServlet extends HttpServlet {
 		String amount = req.getParameter("amount");
 		
 		String[] strs = {m_id, amount};
-		String[] patterns = {"\\b\\d{6,8}\\b","(?:\\d*\\.)?\\d+"};
+		String[] patterns = {
+				"\\b\\d{6,8}\\b",
+				"(?:\\d*\\.)?\\d+"
+				};
 		
 		if((Integer) session.getAttribute("u_level") > 3)
 			resp.sendRedirect("");

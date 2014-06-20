@@ -8,6 +8,19 @@
 	
 	var showDiv;
 	
+	$("#productBatchEditForm").validate({
+		rules: {
+			pre_id: {
+				required: true,
+			}
+		},
+		messages: {
+			pre_id:{
+				required: "Vælg recept.",
+			}
+		}
+	});
+	
 	$("#productBatchCreateForm").validate({
 		rules: {
 			pb_id: {

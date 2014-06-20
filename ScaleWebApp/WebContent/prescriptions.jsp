@@ -21,13 +21,45 @@
 			$("#" + showDiv).fadeOut("fast");
 	});
 	
-	$("form").on("change", "select[name='component']", function(e) {
-		if($(this).closest("tr").prevAll().length == $(this).closest("tr").siblings().length) {
-			var newSelect = "<tr>"
-								+ "<td>"
+	
+	$("#prescriptionEditForm").validate({
+		rules : {
+			pre_id : {
+				required: true,
+				minlength: 8,
+				number: true
+			},
+			pre_name : {
+				required: true
+			}
+		},
+
+		messages : {
+			pre_id : {
+				required: "Indtast Recept-ID",
+				minlength: "Recept-ID skal være på 8 tal",
+				number: "Recept-ID skal være et nummer"
+			},
+			pre_name : {
+				required: "Indtast recept navn"
+
+			}
+
+		}
+	});
+
+	$("form")
+			.on(
+					"change",
+					"select[name='component']",
+					function(e) {
+						if ($(this).closest("tr").prevAll().length == $(this)
+								.closest("tr").siblings().length) {
+							var newSelect = "<tr>"
+									+ "<td>"
 									+ "<select name=\"component\">"
 									+ "<option disabled=\"disabled\" selected=\"selected\">Komponent...</option>"
-									<%
+<%
 									rs = con.doSqlQuery("SELECT * FROM materials");
 									
 									try {
