@@ -46,20 +46,15 @@ public class CreateMaterialServlet extends HttpServlet {
 					int rs = con.doSqlUpdate("INSERT INTO materials VALUES (" + m_id + ",'" + m_name + "','" + s_name + "')");
 					
 					if(rs > 0) 
-						resp.getWriter().write("Successfully inserted " + m_name + " with id " + m_id + " into the database.");
+						resp.getWriter().write("Oprettede råvare med navnet " + m_name + " og id " + m_id + ".");
 					else 
-						resp.getWriter().write("Could not insert " + m_name + " with id " + m_id + " into the database.");
-				}
-				catch (Exception e) {
+						resp.getWriter().write("Kunne ikke oprette råvaren " + m_name + " med id " + m_id + ". Kontroller at råvaren eller id ikke allerede eksisterer.");
+				} catch (SQLException e) {
+					resp.getWriter().write("Kunne ikke kontakte databasen, eller der skete en fejl ved indsættelse af data.");
 					e.printStackTrace();
-				}
-				finally {
-					try {
-						con.closeSql();
-					}
-					catch (SQLException e) {
-						e.printStackTrace();
-					}
+				} catch (Exception e) {
+					resp.getWriter().write("Kritisk programfejl. Kontakt en voksen.");
+					e.printStackTrace();
 				}
 			}
 		}
@@ -74,8 +69,12 @@ public class CreateMaterialServlet extends HttpServlet {
 			return false;
 		
 		for(int i = 0; i < strs.length; i++) 
-			if(!(strs[i].matches(patterns[i])))
+			try {
+				if(!(strs[i].matches(patterns[i])))
 				return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 		return true;
 	}

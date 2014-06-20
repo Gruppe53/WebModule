@@ -18,6 +18,52 @@
 			$("#" + showDiv).fadeOut("fast");
 	});
 	
+	$("img[name*='deleteUserId']").click(function(e) {
+		var uid = this.getAttribute("name").substring(12);
+		
+		$.post(
+			"DeleteServlet",
+			{id:uid, to:"d"},
+			function(response) {
+				alert(response);
+				
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"users.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+	
+	$("img[name*='upgradeUserId']").click(function(e) {
+		var uid = this.getAttribute("name").substring(13);
+		
+		$.post(
+			"DeleteServlet",
+			{id:uid, to:"u"},
+			function(response) {
+				alert(response);
+				
+				$('#container').fadeOut('fast', function() {
+					$.get(
+						"users.jsp",
+						function(data) {
+							$("#container").html(data).fadeIn('fast');
+						},
+						"html"
+					);
+				});
+			},
+			"html"
+		);
+	});
+	
 	$("img[name*='editUserId']").click(function(e) {
 		var id = this.getAttribute("name").substring(10);
 		
@@ -193,7 +239,7 @@
 	});
 </script>
 <h1>brugere</h1>
-<div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div class="actionBtn" style="width: 145px;">inaktive brugere</div>
+<div title="userCreate" class="actionBtn" style="width: 120px">opret bruger</div><div title="inactiveUserList" class="actionBtn" style="width: 145px;">inaktive brugere</div>
 <div style="clear: both;"></div>
 <div id="userList">
 	<h2>brugere</h2>
@@ -207,7 +253,7 @@
         </tr>
        	<%
        		DBAccess con = new DBAccess();
-			ResultSet rs = con.doSqlQuery("SELECT * FROM user");
+			ResultSet rs = con.doSqlQuery("SELECT * FROM user WHERE u_active = 1");
 		
 			try {
 				int i = 0;
@@ -234,7 +280,7 @@
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= userStr %></td>
-				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" name="deleteUserId<%= rs.getInt("u_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 						<%
 					}
@@ -245,7 +291,74 @@
 				            <td><%= rs.getString("u_name") %></td>
 				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
 				            <td><%= userStr %></td>
-				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" name="deleteUserId<%= rs.getInt("u_id") %>" src="image/iconDelete.png" style="width: 12px; height: 12px;" /></td>
+				        </tr>
+				        <%
+					}
+					
+					i++;
+				}
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				rs.close();
+				con.closeSql();
+			}
+        %>
+    </table>
+</div>
+<div id="inactiveUserList" style="display: none;">
+	<h2>inaktive brugere</h2>
+    <table>
+    	<tr>
+        	<td><strong>id</strong></td>
+            <td><strong>navn</strong></td>
+            <td><strong>cpr</strong></td>
+            <td><strong>niveau</strong></td>
+            <td style="width: 6%;"></td>
+        </tr>
+       	<%
+			rs = con.doSqlQuery("SELECT * FROM user WHERE u_active = 0");
+		
+			try {
+				int i = 0;
+				
+				while(rs.next()) {
+					int userInt = rs.getInt("u_level");
+					String userStr = null;
+					
+					if (userInt == 1)
+						userStr = "Administrator";
+					else if (userInt == 2)
+						userStr = "Farmaceut";
+					else if (userInt == 3)
+						userStr = "Værkfører";
+					else if (userInt == 4)
+						userStr = "Operatør";
+					else
+						userStr = "Ukendt";
+					
+					if(i % 2 == 0) {
+						%>
+						<tr class="tableHover">
+				        	<td><%= rs.getInt("u_id") %></td>
+				            <td><%= rs.getString("u_name") %></td>
+				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
+				            <td><%= userStr %></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" name="upgradeUserId<%= rs.getInt("u_id") %>" src="image/iconUpgrade.png" style="width: 12px; height: 12px;" /></td>
+				        </tr>
+						<%
+					}
+					else {
+						%>
+						<tr>
+				        	<td><%= rs.getInt("u_id") %></td>
+				            <td><%= rs.getString("u_name") %></td>
+				            <td><%= rs.getString("u_cpr").substring(0, 6) %> - <%= rs.getString("u_cpr").substring(6, 10) %></td>
+				            <td><%= userStr %></td>
+				            <td style="text-align: center;"><img alt="editUserId<%= rs.getInt("u_id") %>" name="editUserId<%= rs.getInt("u_id") %>" src="image/iconEdit.png" style="width: 12px; height: 12px;" /><img alt="delete" name="upgradeUserId<%= rs.getInt("u_id") %>" src="image/iconUpgrade.png" style="width: 12px; height: 12px;" /></td>
 				        </tr>
 				        <%
 					}

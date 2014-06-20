@@ -50,7 +50,8 @@ h2 {
 #prescriptionList table tr + tr:hover,
 #materialList table tr + tr:hover,
 #materialBatchList table tr + tr:hover,
-#productBatchList table tr + tr:hover {
+#productBatchList table tr + tr:hover,
+#inactiveUserList table tr + tr:hover {
 	background-color: #06F;
 	color: #FFF;
 	cursor: pointer;
@@ -60,7 +61,8 @@ h2 {
 #materialList table tr:first-child td,
 #prescriptionList table tr:first-child td,
 #materialBatchList table tr:first-child td,
-#productBatchList table tr:first-child td {
+#productBatchList table tr:first-child td,
+#inactiveUserList table tr:first-child td {
 	border-bottom: 1px solid #0066ff;
 }
 
@@ -68,7 +70,8 @@ h2 {
 #materialList table tr + tr td,
 #prescriptionList table tr + tr td,
 #materialBatchList table tr + tr td,
-#productBatchList table tr + tr td {
+#productBatchList table tr + tr td,
+#inactiveUserList table tr + tr td {
 	border-right: 1px solid #fff;
 }
 
@@ -76,7 +79,8 @@ h2 {
 #materialList table,
 #prescriptionList table,
 #materialBatchList table,
-#productBatchList table {
+#productBatchList table,
+#inactiveUserList table {
 	width: 100%;
 	border-spacing: 0px;
     border-collapse: separate;

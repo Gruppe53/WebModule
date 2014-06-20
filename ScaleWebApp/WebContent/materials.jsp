@@ -15,10 +15,6 @@
 			$("#" + showDiv).fadeIn("fast");
 		else if(display == "block")
 			$("#" + showDiv).fadeOut("fast");
-		
-		if(showDiv == "materialEdit") {
-			// TODO
-		}
 	});
 	
 	$("#materialCreateForm").validate({
@@ -100,12 +96,14 @@
 	$("input[name='createMaterialSub']").click(function(e) {
 		var id = $("input[name='m_id']").val();
 		var name = $("input[name='m_name']").val();
-		var sup = $("select[name='s_name']").val();
+		var sup = $("input[name='s_name']").val();
 		
 		$.post(
 			"CreateMaterialServlet",
 			{m_id:id, m_name:name, s_name:sup},
 			function(response) {
+				alert(response);
+				
 				$('#container').fadeOut('fast', function() {
 					$.get(
 						"materials.jsp",
@@ -115,24 +113,6 @@
 						"html"
 					);
 				});
-				
-				if(response.substring(1,1) == "S") {
-					$("input[name='m_id']").val("");
-					$("input[name='m_name']").val("");
-					$("select[name='s_name']").val("");
-					
-					var display = $("#" + showDiv).css("display");
-					
-					if(display == "none")
-						$("#" + showDiv).fadeIn("fast");
-					else if(display == "block")
-						$("#" + showDiv).fadeOut("fast");
-					
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
-				else {
-					$("span#latestMsg").html(response).fadeIn("fast");
-				}
 			},
 			"html"
 		);
@@ -217,28 +197,7 @@
                 	<label for="s_name">Leverandør</label>
                 </td>
                 <td>
-                    <select name="s_name">
-                        <option selected="selected" disabled="disabled">Leverandør...</option>
-                        <%
-						rs = con.doSqlQuery("SELECT * FROM suppliers");
-						
-						try {
-							while(rs.next()) {
-								%>
-								<option value="<%= rs.getString("s_name") %>"><%= rs.getString("s_name") %> [<%= rs.getInt("s_id") %>]</option>
-								<%
-							}
-						}
-						catch (SQLException e) {
-							e.printStackTrace();
-						}
-						finally {
-							rs.close();
-							con.closeSql();
-						}
-						
-						%>
-                    </select>
+                	<input id="s_name" name="s_name" placeholder="Leverandørens navn" />
                 </td>
             </tr>
             <tr>

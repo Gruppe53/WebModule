@@ -33,23 +33,29 @@ public class EditPrescriptionServlet extends HttpServlet {
 			DBAccess con = new DBAccess();
 			
 			try {
-				ResultSet rs = con.doSqlQuery("SELECT * FROM prescription WHERE pre_id = " + pre_id);
-				ResultSet cp = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + pre_id);
-				
-				String comps = "";
-				int j = 0;
-				
-				while(cp.next()) {
-					if(j == 0)
-						comps += cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
-					else
-						comps += "||" + cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
-					
-					j++;
+				ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch WHERE pre_id = " + pre_id);
+				if (!rs.isBeforeFirst()) {    
+					resp.getWriter().write("Recepten er blevet brugt til at oprette en produktbatch, og kan derfor ikke redigeres."); 
 				}
-				
-				while(rs.next())
-					resp.getWriter().write(rs.getInt("pre_id")+"||"+rs.getString("pre_name")+"||"+comps);
+				else {
+					rs = con.doSqlQuery("SELECT * FROM prescription WHERE pre_id = " + pre_id);
+					ResultSet cp = con.doSqlQuery("SELECT * FROM precomponent NATURAL JOIN materials WHERE pre_id = " + pre_id);
+					
+					String comps = "";
+					int j = 0;
+					
+					while(cp.next()) {
+						if(j == 0)
+							comps += cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
+						else
+							comps += "||" + cp.getInt("m_id") + "--" + cp.getString("m_name") + "--" + cp.getDouble("netto") + "--" + cp.getDouble("tolerance");
+						
+						j++;
+					}
+					
+					while(rs.next())
+						resp.getWriter().write(rs.getInt("pre_id")+"||"+rs.getString("pre_name")+"||"+comps);
+				}
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
