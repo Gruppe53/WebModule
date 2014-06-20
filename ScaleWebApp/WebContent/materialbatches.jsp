@@ -81,7 +81,7 @@
 				
 				$("#container").fadeOut("fast", function() {
 					$.get(
-						"materials.jsp",
+						"materialbatches.jsp",
 						function(data) {
 							$("#container").html(data).fadeIn("fast");
 						},
