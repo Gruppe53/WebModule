@@ -34,7 +34,7 @@ public class EditPrescriptionServlet extends HttpServlet {
 			
 			try {
 				ResultSet rs = con.doSqlQuery("SELECT * FROM productbatch WHERE pre_id = " + pre_id);
-				if (!rs.isBeforeFirst()) {    
+				if (!(!rs.isBeforeFirst())) { // not-not... great expression  
 					resp.getWriter().write("Recepten er blevet brugt til at oprette en produktbatch, og kan derfor ikke redigeres."); 
 				}
 				else {

@@ -13,14 +13,14 @@ public class DBAccess {
 	private String DBUserName;
 	private String DBPassword;
 	
+	private DBInfo dbinfo = new DBInfo();
+	
 	public DBAccess() {
-		DBInfo Info = new DBInfo();
-		
-		this.DBHost = Info.getDBHost();
-		this.DBPort = Info.getDBPort();
-		this.DBDatabase = Info.getDBDatabase();
-		this.DBUserName = Info.getDBUserName();
-		this.DBPassword = Info.getDBPassword();
+		this.DBHost = dbinfo.getDBHost();
+		this.DBPort = dbinfo.getDBPort();
+		this.DBDatabase = dbinfo.getDBDatabase();
+		this.DBUserName = dbinfo.getDBUserName();
+		this.DBPassword = dbinfo.getDBPassword();
 	}
 	
 	public ResultSet doSqlQuery(String query) throws Exception, SQLException {
@@ -52,6 +52,10 @@ public class DBAccess {
 		catch (Exception e) {
 			throw e;
 		}
+	}
+	public void closeSqlNonRS() throws SQLException {
+		this.statement.close();
+		this.connect.close();
 	}
 	
 	public void closeSql() throws SQLException {

@@ -53,17 +53,11 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 		}
-		catch (Exception e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			try {
-				rs.close();
-				con.closeSql();
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
